@@ -8,6 +8,10 @@ def create_buttons(num_buttons):
     button_window = tk.Toplevel()
     button_window.title("Button Selector")
     button_window.protocol("WM_DELETE_WINDOW", close_program)
+    
+    #Top Lable added - Exsessive spaces are there to help expand the window out more artificially VS setting an acutal window size :P 
+    label = tk.Label(button_window, text="                     Press a Button to get started:                     ")
+    label.pack()
 
     with open("iplist.txt", "r") as file:
         lines = file.readlines()[1:]  # Skip the first line
