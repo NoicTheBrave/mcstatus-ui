@@ -31,8 +31,32 @@ def on_button_press(button_index):
     threading.Thread(target=show_popup, args=(button_index,)).start()
 
 def show_popup(button_index):
-    messagebox.showinfo("Button Pressed", f"Button {button_index + 1} with IP {get_ip_address(button_index)} was pressed!")
-    time.sleep(2)  # Simulating some work
+    ip_address = get_ip_address(button_index)
+    popup_window = tk.Toplevel()
+    popup_window.title("Button Pressed")
+    
+    # Label to display the IP address
+    ip_label = tk.Label(popup_window, text=f"IP Address: {ip_address}")
+    ip_label.pack()
+
+    # Text box to display the running count of seconds
+    time_text = tk.Text(popup_window, height=1, state='disabled')
+    time_text.pack()
+
+    # Function to update the time display
+    def update_time():
+        seconds = 0
+        while True:
+            time_text.config(state='normal')
+            time_text.delete(1.0, tk.END)
+            time_text.insert(tk.END, f"Seconds passed: {seconds}")
+            time_text.config(state='disabled')
+            time.sleep(1)
+            seconds += 1
+
+    # Start a thread to update the time display
+    threading.Thread(target=update_time, daemon=True).start()
+
 
 def close_program():
     root.destroy()
