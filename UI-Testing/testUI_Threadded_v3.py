@@ -9,19 +9,25 @@ def create_buttons(num_buttons):
     button_window.title("Button Selector")
     button_window.protocol("WM_DELETE_WINDOW", close_program)
 
-    for i in range(num_buttons):
-        button = tk.Button(button_window, text=f"Button {i+1}", command=lambda idx=i+1: on_button_press(idx))
-        button.pack()
+    with open("iplist.txt", "r") as file:
+        lines = file.readlines()[1:]  # Skip the first line
+        for i in range(num_buttons):
+            if i < len(lines):
+                ip_address = lines[i].strip()
+            else:
+                ip_address = ""
+            button = tk.Button(button_window, text=ip_address, command=lambda idx=i: on_button_press(idx))
+            button.pack()
 
     # Add "Add Server IP" button
     add_button = tk.Button(button_window, text="Add Server IP", command=add_server_ip)
     add_button.pack()
 
-def on_button_press(button_number):
-    threading.Thread(target=show_popup, args=(button_number,)).start()
+def on_button_press(button_index):
+    threading.Thread(target=show_popup, args=(button_index,)).start()
 
-def show_popup(button_number):
-    messagebox.showinfo("Button Pressed", f"Button {button_number} was pressed!")
+def show_popup(button_index):
+    messagebox.showinfo("Button Pressed", f"Button {button_index + 1} with IP {get_ip_address(button_index)} was pressed!")
     time.sleep(2)  # Simulating some work
 
 def close_program():
@@ -32,10 +38,20 @@ def read_num_buttons():
     try:
         with open("iplist.txt", "r") as file:
             lines = file.readlines()
-            return len(lines) - 1  # First row is reserved for the "Type '0' to add an IP" message
+            output = len(lines)
+            return output - 2  # First row is reserved for the "Type '0' to add an IP" message, final row is reserved for fomatting
     except FileNotFoundError:
         messagebox.showerror("File Not Found", "The file 'iplist.txt' was not found.")
         return 0
+
+# Get the IP address corresponding to the button index
+def get_ip_address(button_index):
+    with open("iplist.txt", "r") as file:
+        lines = file.readlines()[1:]  # Skip the first line       
+        if button_index < len(lines):
+            return lines[button_index].strip()
+        else:
+            return ""
 
 # Add a new server IP
 def add_server_ip():
@@ -44,12 +60,11 @@ def add_server_ip():
         try:
             with open("iplist.txt", "r+") as file:
                 lines = file.readlines()
-                if lines[-1][-1] != '\n':# Edge-case for the text file - Check if the "final row" has a newline @ the end of it (aka, blank final row)
-                    file.write("\n")  # Add a new blank row if not empty
+                if lines[-1][-1] != '\n': #Edge case being compendated for when writing to text file 
+                    file.write("\n")
                 file.write(new_ip + "\n")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to add IP: {e}")
-    # Close the current window and re-launch Button Selector window
     button_window.destroy()
     main()
 
@@ -69,4 +84,3 @@ root.withdraw()  # Hide the root window
 main()
 
 root.mainloop()
-

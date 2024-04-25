@@ -3,8 +3,9 @@ mc.hypixel.net
 tu-ece.playit.gg
 0.tcp.ngrok.io:18637
 festivianservers.net
-testIP
-_testING_
-asdfasdfa
-65
-99
+test
+asdfasdfasd
+asdfasdf
+asdfasfwe
+asfwqeq
+asdfasdf9999
