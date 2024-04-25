@@ -48,10 +48,10 @@ def show_popup(button_index):
         seconds = 0
         while True:
             time_text.config(state='normal')
-            time_text.delete(1.0, tk.END)
-            time_text.insert(tk.END, f"Seconds passed: {seconds}")
-            time_text.config(state='disabled')
-            time.sleep(1)
+            time_text.delete(1.0, tk.END)#Clears the contents of the text field
+            time_text.insert(tk.END, f"Seconds passed: {seconds}") #Updates the text field 
+            time_text.config(state='disabled') #Disables user's ability to edit text field (Good)
+            time.sleep(1) #Time delay for the counter
             seconds += 1
 
     # Start a thread to update the time display
