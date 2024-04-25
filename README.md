@@ -10,4 +10,8 @@ This was originally a replit project from a few years ago, and I have since then
 * Menu to select which server to start pinging
 * Change color of the background based on the number of people online (a feature of a previous version long lost to time, helps if window is on another monitor or seporate monitoring device (phone, tablet, etc), and you just want a quick glance to see if anything changed w/o having to look at text!) [was designed for up to, i believe 9 ppl before it just capped out beyond that]
 
-* 
+# "Sources" 
+* https://replit.com/@NicholasChorett/mcstatusTest#constantPing_Slowed.py
+* * Also known as the "web version" of the application, this is where I first made this application. Unfortunately, I cannot develop UI on this (fair enough), and thus this project was born
+* https://github.com/Dinnerbone/mcstatus
+* * This was the original source 
