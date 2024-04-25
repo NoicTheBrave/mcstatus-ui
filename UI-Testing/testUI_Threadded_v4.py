@@ -50,7 +50,7 @@ def show_popup(button_index):
         #seconds = 0
         test = ip_address #didnt wanna update 2 legacy vars, lol
         
-        def lockUnlockTextBox(message): 
+        def lockUnlockTextBox(message): #This publishes the text to the location: Allows text box to be edited long enough for pgm to update box - but prevents users from editing text box (they dont need to edite it, if they did it doesnt matter, just looks better this way )
             time_text.config(state='normal')
             time_text.insert(tk.END, f"{message}") #and replied in {status.latency} ms")
             time_text.config(state='disabled')
@@ -81,26 +81,13 @@ def show_popup(button_index):
                 # It may give more information than a ping, such as a full player list or mod information.
             """
             if (status.players.online != 0):
-
                 lockUnlockTextBox(f"\nAttempting to pull active player names...")
                 try:
                     query = server.query()
-                    """
-                    time_text.config(state='normal')
-                    time_text.insert(tk.END, f"The server has the following players online: {', '.join(query.players.names)}")
-                    time_text.config(state='disabled') """
                     lockedunlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
                 except:
-                    """
-                    time_text.config(state='normal')
-                    time_text.insert(tk.END, f"ERR: Cannot get name of players. please enable 'quere' in server.properties")
-                    time_text.config(state='disabled') """
                     lockUnlockTextBox(f"ERR: Cannot get name of players. please enable 'quere' in server.properties")
             else:
-                """
-                time_text.config(state='normal')
-                time_text.insert(tk.END, f"No Players Online. Quere Skipped!")
-                time_text.config(state='disabled')    """
                 lockUnlockTextBox(f"No Players Online. Quere Skipped!")
                     
             #time_text.insert(tk.END, f"Seconds passed: {seconds}") #Updates the text field 
