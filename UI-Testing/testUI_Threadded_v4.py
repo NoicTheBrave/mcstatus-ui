@@ -68,10 +68,7 @@ def show_popup(button_index):
                 alter this list to contain fake players for purposes of having a custom message here.
             '''
             status = server.status()
-            """ time_text.config(state='normal')
-            time_text.insert(tk.END, f"The server has the following number players online: {status.players.online}") #and replied in {status.latency} ms")
-            time_text.config(state='disabled') """
-            
+
             lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
             
             """
@@ -84,23 +81,27 @@ def show_popup(button_index):
                 # It may give more information than a ping, such as a full player list or mod information.
             """
             if (status.players.online != 0):
-                """ time_text.config(state='normal')
-                time_text.insert(tk.END, f"\nAttempting to pull active player names...")
-                time_text.config(state='disabled') """
+
                 lockUnlockTextBox(f"\nAttempting to pull active player names...")
                 try:
                     query = server.query()
+                    """
                     time_text.config(state='normal')
                     time_text.insert(tk.END, f"The server has the following players online: {', '.join(query.players.names)}")
-                    time_text.config(state='disabled')
+                    time_text.config(state='disabled') """
+                    lockedunlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
                 except:
+                    """
                     time_text.config(state='normal')
                     time_text.insert(tk.END, f"ERR: Cannot get name of players. please enable 'quere' in server.properties")
-                    time_text.config(state='disabled')
+                    time_text.config(state='disabled') """
+                    lockUnlockTextBox(f"ERR: Cannot get name of players. please enable 'quere' in server.properties")
             else:
+                """
                 time_text.config(state='normal')
                 time_text.insert(tk.END, f"No Players Online. Quere Skipped!")
-                time_text.config(state='disabled')   
+                time_text.config(state='disabled')    """
+                lockUnlockTextBox(f"No Players Online. Quere Skipped!")
                     
             #time_text.insert(tk.END, f"Seconds passed: {seconds}") #Updates the text field 
             #time_text.config(state='disabled') #Disables user's ability to edit text field (Good)
