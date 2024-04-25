@@ -53,6 +53,8 @@ def show_popup(button_index):
             time_text.config(state='disabled') #Disables user's ability to edit text field (Good)
             time.sleep(1) #Time delay for the counter
             seconds += 1
+    # Start a thread to update the time display
+    threading.Thread(target=update_time, daemon=True).start()
             
 def getIPInfo(): 
     server = JavaServer.lookup(test)# "tu-ece.playit.gg"))
@@ -77,20 +79,17 @@ def getIPInfo():
         # It may give more information than a ping, such as a full player list or mod information.
     """
     if (status.players.online != 0):
-    
-
-    print("\nAttempting to pull active player names...")
-    try:
-        query = server.query()
-        print(f"The server has the following players online: {', '.join(query.players.names)}")
-    except:
-        print("ERR: Cannot get name of players. please enable 'quere' in server.properties")
+        print("\nAttempting to pull active player names...")
+        try:
+            query = server.query()
+            print(f"The server has the following players online: {', '.join(query.players.names)}")
+        except:
+            print("ERR: Cannot get name of players. please enable 'quere' in server.properties")
     else:
-    print("No Players Online. Quere Skipped!")
+        print("No Players Online. Quere Skipped!")
 
 
-    # Start a thread to update the time display
-    threading.Thread(target=update_time, daemon=True).start()
+
 
 
 def close_program():
