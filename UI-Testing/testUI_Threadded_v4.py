@@ -42,7 +42,7 @@ def show_popup(button_index):
     ip_label.pack()
 
     # Checkbutton to toggle querying for players
-    query_var = tk.BooleanVar(value=True)  # Default: Querying enabled
+    query_var = tk.BooleanVar(value=False)  # Default: Querying enabled
     query_button = tk.Checkbutton(popup_window, text="Enable Quere", variable=query_var)
     query_button.pack()
 
