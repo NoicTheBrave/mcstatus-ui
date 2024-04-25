@@ -44,16 +44,7 @@ def add_server_ip():
         try:
             with open("iplist.txt", "r+") as file:
                 lines = file.readlines()
-                
-                
-                print("LINES: " + str(len(lines)) + "\n")
-                print("FinalLineLen: " + str(len(lines[-1])) + "\n")
-                #print("FinalLine - Final Char: "+ str(int(lines[-1][-1])) + "\n")
-                print("-----\n") #Consider this the end of this debug chunk
-                
-                
-                #if lines[-1].strip():  # Check if the final row has text
-                if lines[-1][-1] != '\n':# Check if the "final row" has a newline @ the end of it (aka, blank final row)
+                if lines[-1][-1] != '\n':# Edge-case for the text file - Check if the "final row" has a newline @ the end of it (aka, blank final row)
                     file.write("\n")  # Add a new blank row if not empty
                 file.write(new_ip + "\n")
         except Exception as e:
