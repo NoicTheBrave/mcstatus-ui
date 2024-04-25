@@ -36,10 +36,15 @@ def show_popup(button_index):
     ip_address = get_ip_address(button_index)
     popup_window = tk.Toplevel()
     popup_window.title("Button Pressed")
-    
+
     # Label to display the IP address
     ip_label = tk.Label(popup_window, text=f"IP Address: {ip_address}")
     ip_label.pack()
+
+    # Checkbutton to toggle querying for players
+    query_var = tk.BooleanVar(value=True)  # Default: Querying enabled
+    query_button = tk.Checkbutton(popup_window, text="Enable Quere", variable=query_var)
+    query_button.pack()
 
     # Text box to display the running count of seconds
     time_text = tk.Text(popup_window, height=10, state='disabled')
@@ -47,57 +52,39 @@ def show_popup(button_index):
 
     # Function to update the time display
     def update_time():
-        #seconds = 0
-        test = ip_address #didnt wanna update 2 legacy vars, lol
-        
-        def lockUnlockTextBox(message): #This publishes the text to the location: Allows text box to be edited long enough for pgm to update box - but prevents users from editing text box (they dont need to edite it, if they did it doesnt matter, just looks better this way )
+        seconds = 0
+        test = ip_address  # Didn't want to update two legacy vars, lol
+
+        def lockUnlockTextBox(message):  # This publishes the text to the location: Allows text box to be edited long enough for pgm to update box - but prevents users from editing text box (they dont need to edite it, if they did it doesnt matter, just looks better this way )
             time_text.config(state='normal')
-            time_text.insert(tk.END, f"{message}") #and replied in {status.latency} ms")
+            time_text.insert(tk.END, f"{message}")  # and replied in {status.latency} ms")
             time_text.config(state='disabled')
+
         while True:
-            #time_text.config(state='normal')
             time_text.config(state='normal')
-            time_text.delete(1.0, tk.END)#Clears the contents of the text field
-            
-            time_text.config(state='disabled')
-            server = JavaServer.lookup(test)# "tu-ece.playit.gg"))
-            '''
-                'status' is supported by all Minecraft servers that are version 1.7 or higher.
-                Don't expect the player list to always be complete, because many servers run
-                plugins that hide this information or limit the number of players returned or even
-                alter this list to contain fake players for purposes of having a custom message here.
-            '''
+            time_text.delete(1.0, tk.END)  # Clears the contents of the text field
+
+            server = JavaServer.lookup(test)
             status = server.status()
 
             lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
-            
-            """
-                # 'ping' is supported by all Minecraft servers that are version 1.7 or higher.
-                # It is included in a 'status' call, but is also exposed separate if you do not require the additional info.
-                #latency = server.ping()
-                #print(f"The server replied in {latency} ms")
 
-                # 'query' has to be enabled in a server's server.properties file!
-                # It may give more information than a ping, such as a full player list or mod information.
-            """
-            if (status.players.online != 0):
+            if query_var.get():  # Check if querying is enabled
                 lockUnlockTextBox(f"\nAttempting to pull active player names...")
                 try:
                     query = server.query()
-                    lockedunlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
+                    lockUnlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
                 except:
                     lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'quere' in server.properties")
-                    time.sleep(5) #let ppl read the msg 
+                    time.sleep(5)  # let ppl read the msg
             else:
-                lockUnlockTextBox(f"No Players Online. Quere Skipped!")
-                time.sleep(2) #let ppl read the msg 
-                    
-            #time_text.insert(tk.END, f"Seconds passed: {seconds}") #Updates the text field 
-            #time_text.config(state='disabled') #Disables user's ability to edit text field (Good)
-            time.sleep(1) #Time delay for the counter
-            #seconds += 1
+                lockUnlockTextBox(f"\nQuere Skipped!")
+
+            time.sleep(1)  # Time delay for the counter
+
     # Start a thread to update the time display
     threading.Thread(target=update_time, daemon=True).start()
+
 
 def close_program():
     root.destroy()
