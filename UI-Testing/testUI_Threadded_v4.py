@@ -42,7 +42,7 @@ def show_popup(button_index):
     ip_label.pack()
 
     # Text box to display the running count of seconds
-    time_text = tk.Text(popup_window, height=1, state='disabled')
+    time_text = tk.Text(popup_window, height=10, state='disabled')
     time_text.pack()
 
     # Function to update the time display
@@ -86,9 +86,11 @@ def show_popup(button_index):
                     query = server.query()
                     lockedunlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
                 except:
-                    lockUnlockTextBox(f"ERR: Cannot get name of players. please enable 'quere' in server.properties")
+                    lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'quere' in server.properties")
+                    time.sleep(5) #let ppl read the msg 
             else:
                 lockUnlockTextBox(f"No Players Online. Quere Skipped!")
+                time.sleep(2) #let ppl read the msg 
                     
             #time_text.insert(tk.END, f"Seconds passed: {seconds}") #Updates the text field 
             #time_text.config(state='disabled') #Disables user's ability to edit text field (Good)
