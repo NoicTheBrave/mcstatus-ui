@@ -3,6 +3,8 @@ from tkinter import messagebox, simpledialog
 import threading
 import time
 
+from mcstatus import JavaServer
+
 def create_buttons(num_buttons):
     global button_window
     button_window = tk.Toplevel()
@@ -45,14 +47,65 @@ def show_popup(button_index):
 
     # Function to update the time display
     def update_time():
-        seconds = 0
+        #seconds = 0
+        test = ip_address #didnt wanna update 2 legacy vars, lol
+        
+        def lockUnlockTextBox(message): 
+            time_text.config(state='normal')
+            time_text.insert(tk.END, f"{message}") #and replied in {status.latency} ms")
+            time_text.config(state='disabled')
         while True:
+            #time_text.config(state='normal')
             time_text.config(state='normal')
             time_text.delete(1.0, tk.END)#Clears the contents of the text field
-            time_text.insert(tk.END, f"Seconds passed: {seconds}") #Updates the text field 
-            time_text.config(state='disabled') #Disables user's ability to edit text field (Good)
+            
+            time_text.config(state='disabled')
+            server = JavaServer.lookup(test)# "tu-ece.playit.gg"))
+            '''
+                'status' is supported by all Minecraft servers that are version 1.7 or higher.
+                Don't expect the player list to always be complete, because many servers run
+                plugins that hide this information or limit the number of players returned or even
+                alter this list to contain fake players for purposes of having a custom message here.
+            '''
+            status = server.status()
+            """ time_text.config(state='normal')
+            time_text.insert(tk.END, f"The server has the following number players online: {status.players.online}") #and replied in {status.latency} ms")
+            time_text.config(state='disabled') """
+            
+            lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
+            
+            """
+                # 'ping' is supported by all Minecraft servers that are version 1.7 or higher.
+                # It is included in a 'status' call, but is also exposed separate if you do not require the additional info.
+                #latency = server.ping()
+                #print(f"The server replied in {latency} ms")
+
+                # 'query' has to be enabled in a server's server.properties file!
+                # It may give more information than a ping, such as a full player list or mod information.
+            """
+            if (status.players.online != 0):
+                """ time_text.config(state='normal')
+                time_text.insert(tk.END, f"\nAttempting to pull active player names...")
+                time_text.config(state='disabled') """
+                lockUnlockTextBox(f"\nAttempting to pull active player names...")
+                try:
+                    query = server.query()
+                    time_text.config(state='normal')
+                    time_text.insert(tk.END, f"The server has the following players online: {', '.join(query.players.names)}")
+                    time_text.config(state='disabled')
+                except:
+                    time_text.config(state='normal')
+                    time_text.insert(tk.END, f"ERR: Cannot get name of players. please enable 'quere' in server.properties")
+                    time_text.config(state='disabled')
+            else:
+                time_text.config(state='normal')
+                time_text.insert(tk.END, f"No Players Online. Quere Skipped!")
+                time_text.config(state='disabled')   
+                    
+            #time_text.insert(tk.END, f"Seconds passed: {seconds}") #Updates the text field 
+            #time_text.config(state='disabled') #Disables user's ability to edit text field (Good)
             time.sleep(1) #Time delay for the counter
-            seconds += 1
+            #seconds += 1
     # Start a thread to update the time display
     threading.Thread(target=update_time, daemon=True).start()
             
