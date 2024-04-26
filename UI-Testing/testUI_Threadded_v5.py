@@ -36,6 +36,7 @@ def show_popup(button_index):
     ip_address = get_ip_address(button_index)
     popup_window = tk.Toplevel()
     popup_window.title("Button Pressed")
+    
 
     # Label to display the IP address
     ip_label = tk.Label(popup_window, text=f"IP Address: {ip_address}")
@@ -49,6 +50,8 @@ def show_popup(button_index):
     # Text box to display the running count of seconds
     time_text = tk.Text(popup_window, height=10, state='disabled')
     time_text.pack()
+
+
 
     # Function to update the time display
     def update_time():
@@ -81,10 +84,39 @@ def show_popup(button_index):
                 lockUnlockTextBox(f"\nQuere Skipped!")
 
             time.sleep(1)  # Time delay for the counter
-
     # Start a thread to update the time display
     threading.Thread(target=update_time, daemon=True).start()
 
+    
+
+    # Function to set background color based on the number of players online
+    def set_background_color(num_players):
+        if num_players == 0:
+            popup_window.configure(bg="SystemWindow")
+        elif num_players <= 15:
+            # Define a color palette
+            color_palette = ["#FF5733", #redish Orange
+                             "#FFC300", #Yellow
+                             "#DAF7A6", #Weird Light Green
+                             "#C70039", "#900C3F",
+                             "#581845", "#FF5733", "#FFC300", "#DAF7A6", "#C70039",
+                             "#900C3F", "#581845", "#FF5733", "#FFC300", "#DAF7A6"]
+
+            # Set background color based on the number of players
+            popup_window.configure(bg=color_palette[num_players - 1])
+
+    # Function to update the background color based on the number of players online
+    def update_background_color():
+        while True:
+            server = JavaServer.lookup(ip_address)
+            status = server.status()
+            num_players = status.players.online
+            set_background_color(num_players)
+            time.sleep(1)
+
+    # Start a thread to update the background color
+    threading.Thread(target=update_background_color, daemon=True).start()
+    
 
 def close_program():
     root.destroy()
