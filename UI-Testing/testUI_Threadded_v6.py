@@ -93,14 +93,17 @@ def show_popup(button_index):
     def set_background_color(num_players):
         if num_players == 0:
             popup_window.configure(bg="SystemWindow")
-        elif num_players <= 15:
+        elif num_players <= 8:
             # Define a color palette
-            color_palette = ["#FF5733", #redish Orange
-                             "#FFC300", #Yellow
-                             "#DAF7A6", #Weird Light Green
-                             "#C70039", "#900C3F",
-                             "#581845", "#FF5733", "#FFC300", "#DAF7A6", "#C70039",
-                             "#900C3F", "#581845", "#FF5733", "#FFC300", "#DAF7A6"]
+            color_palette = ["#FF0000", #RED
+                             "#FFA500", #ORANGE
+                             "#FFFF00", #YELLOW
+                             "#008000", #GREEN
+                             "#0000FF", #BLUE
+                             "#900C3F", #Purple
+                             "#00FFFF", #CYAN
+                             "#00FF00"] #Lime Green
+                             
 
             # Set background color based on the number of players
             popup_window.configure(bg=color_palette[num_players - 1])
