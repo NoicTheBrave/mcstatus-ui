@@ -33,6 +33,12 @@ This was originally a replit project from a few years ago, and I have since then
   <img src="https://github.com/NoicTheBrave/mcstatus-ui/blob/main/images/mcstatus-ui_image4.png" alt="Image">
 </p>
 
+* Query Players on Server
+  * If the server that you are pinging has query enabled (in server config files, even for basic *java* vanilla servers [idk about bedrock]), then you can query and get the player names of the players actively on the server. Otherwise, you will be met with a message similar to the one shown below, because of this, query is OFF by default. To enable, click the little checkbox under the listed IP address of the server you are pinging, as shown below. 
+<p align="center">
+  <img src="https://github.com/NoicTheBrave/mcstatus-ui/blob/main/images/mcstatus-ui_image5.png" alt="Image">
+</p>
+
 * Remove servers from listings
   * To remove a server from the list, simply open the "iplist.txt" file included in the same directory as the main program
 <p align="center">
