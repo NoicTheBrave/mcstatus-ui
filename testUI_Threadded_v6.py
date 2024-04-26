@@ -44,7 +44,7 @@ def show_popup(button_index):
 
     # Checkbutton to toggle querying for players
     query_var = tk.BooleanVar(value=False)  # Default: Querying enabled
-    query_button = tk.Checkbutton(popup_window, text="Enable Quere", variable=query_var)
+    query_button = tk.Checkbutton(popup_window, text="Enable Query", variable=query_var)
     query_button.pack()
 
     # Text box to display the running count of seconds
@@ -78,10 +78,10 @@ def show_popup(button_index):
                     query = server.query()
                     lockUnlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
                 except:
-                    lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'quere' in server.properties")
+                    lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
                     time.sleep(5)  # let ppl read the msg
             else:
-                lockUnlockTextBox(f"\nQuere Skipped!")
+                lockUnlockTextBox(f"\nQuery Skipped!")
 
             time.sleep(1)  # Time delay for the counter
     # Start a thread to update the time display
