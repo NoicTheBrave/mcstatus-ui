@@ -154,7 +154,7 @@ def smartLogPlayerActivity(ip_address,toggleQuery): #logs more frequently when p
 
     csvDataLoggedFormat,fileName = formatPlayerLogData(ip_address,toggleQuery)
     
-    print(csvDataLoggedFormat[2])
+    #print(csvDataLoggedFormat[2])
     currentMinute = csvDataLoggedFormat[5][14:16]
     print(currentMinute)
     if(csvDataLoggedFormat[2] == 0): #if nobody is online
@@ -164,6 +164,7 @@ def smartLogPlayerActivity(ip_address,toggleQuery): #logs more frequently when p
             print("Time Changed! Time was logged ")
             makeCSVHeadder(fileName)
             write_to_csv(fileName, csvDataLoggedFormat)
+            previousMinute = csvDataLoggedFormat[6][14:16] #must update previous minute to current minute on the hour for this to work properly
     else: #someone IS online    
         makeCSVHeadder(fileName)
         write_to_csv(fileName, csvDataLoggedFormat)
