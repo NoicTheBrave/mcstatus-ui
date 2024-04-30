@@ -66,7 +66,7 @@ def makeCSVHeadder(fileName):
     #filename = 'data.csv'
     doesFileExist = check_file_exists(fileName)
     if(doesFileExist): 
-        print("File Exists - SNo Headder Required") #stop doing its task, skip function. Otherwise, proceed with the next steps
+        print("File Exists - No Headder Required") #stop doing its task, skip function. Otherwise, proceed with the next steps
     else:
         
         headers = ['Server IP', 'QueryState', 'PlayersOnline', 'PlayerNames', 'Time (Epoch)', 'Time (Human-Readable) [EST]'] #EST -> Only for my regeion that I am developing this code in, idk about others who use this :) 
@@ -119,33 +119,55 @@ def pingServer(ip_address,queryEnable): #String, Bool
 
 #serverIP - Remove "." and ":" characters from the IP, followed by "_", then the date
     
-
-def logPlayerActivity(ip_address,toggleQuery):
-#if __name__ == "__main__":
-
-    #toggleQuery = False #True
-    #ip_address = "festivianservers.net"
+def formatPlayerLogData(ip_address,toggleQuery): 
     serverInfo = pingServer(ip_address, toggleQuery)
-    print("------------------")
-    for i in serverInfo:
-        print(i)
-
     
     # Getting time comes 2nd, cause I wanna know this info after I got the info, not before... 
     epoch_time = get_epoch_time()
     human_readable_time = epoch_to_human_readable(epoch_time)
-    print("Current Epoch Time:", epoch_time)
-    print("Human Readable Time: "+  human_readable_time + " ECT") #currently running this in an Eastern Centural Time (ECT) timezone, so I am throwing this here for my own internall stuff - may need to be changed for you, if this is used in a different timezone, if this time is accurate to ur timezone.... yeah :P (idm m8)
-    
-    #create_csv(ip_address)
     fileName = formatFileName(ip_address,epoch_time)
-    print(fileName)
+    
     
     csvData = []
     for i in serverInfo:
         csvData.append(i)
     csvData.append(epoch_time)
     csvData.append(human_readable_time)
+    
+    return [csvData, fileName]
+
+
+def logPlayerActivity(ip_address,toggleQuery):
+
+    csvDataLoggedFormat,fileName = formatPlayerLogData(ip_address,toggleQuery)
+    
+    
+    makeCSVHeadder(fileName)
+    write_to_csv(fileName, csvDataLoggedFormat)
+    
+    return csvDataLoggedFormat
+
+def smartLogPlayerActivity(ip_address,toggleQuery): #logs more frequently when ppl are online, and logs less when ppl are offline - constantly pings server every 1 second reguardless
+
+    serverInfo = pingServer(ip_address, toggleQuery)
+    
+    # Getting time comes 2nd, cause I wanna know this info after I got the info, not before... 
+    epoch_time = get_epoch_time()
+    human_readable_time = epoch_to_human_readable(epoch_time)
+
+    fileName = formatFileName(ip_address,epoch_time)
+    
+    csvData = []
+    for i in serverInfo:
+        csvData.append(i)
+    csvData.append(epoch_time)
+    csvData.append(human_readable_time)
+    
+    # This is what makes it "smart"
+    if(csvData[2] > 0): #if player is online 
+        makeCSVHeadder(fileName)
+        write_to_csv(fileName, csvData)
+    
     makeCSVHeadder(fileName)
     write_to_csv(fileName, csvData)
     
