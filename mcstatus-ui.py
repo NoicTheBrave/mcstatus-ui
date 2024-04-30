@@ -3,6 +3,8 @@ from tkinter import messagebox, simpledialog
 import threading
 import time
 
+from trackPlayerActivity import * #Custom thing for logging python data :) 
+
 from mcstatus import JavaServer
 
 def create_buttons(num_buttons):
@@ -43,9 +45,14 @@ def show_popup(button_index):
     ip_label.pack()
 
     # Checkbutton to toggle querying for players
-    query_var = tk.BooleanVar(value=False)  # Default: Querying enabled
+    query_var = tk.BooleanVar(value=False)  # Default: Querying Disabled
     query_button = tk.Checkbutton(popup_window, text="Enable Query", variable=query_var)
     query_button.pack()
+    
+    logData_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
+    logData_button = tk.Checkbutton(popup_window, text="Enable Player Data Logging", variable=logData_var)
+    logData_button.pack()
+    
 
     # Text box to display the running count of seconds
     time_text = tk.Text(popup_window, height=10, state='disabled')
@@ -72,7 +79,8 @@ def show_popup(button_index):
 
             lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
 
-            if query_var.get():  # Check if querying is enabled
+            toggleQuery = query_var.get()
+            if toggleQuery:  # Check if querying is enabled
                 lockUnlockTextBox(f"\nAttempting to pull active player names...")
                 try:
                     query = server.query()
@@ -82,6 +90,17 @@ def show_popup(button_index):
                     time.sleep(5)  # let ppl read the msg
             else:
                 lockUnlockTextBox(f"\nQuery Skipped!")
+
+            
+            if logData_var.get():  # Check if querying is enabled
+                lockUnlockTextBox(f"\nLogging Player Data...")
+                data = smartLogPlayerActivity(ip_address,toggleQuery)
+                for i in data:
+                    lockUnlockTextBox("\n" + str(i))
+            else:
+                lockUnlockTextBox(f"Data is Not being logged.")
+
+
 
             time.sleep(1)  # Time delay for the counter
     # Start a thread to update the time display
