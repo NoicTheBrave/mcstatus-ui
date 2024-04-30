@@ -33,6 +33,20 @@ def epoch_to_human_readable(epoch_time):
     human_readable_time = time.ctime(epoch_time)
     return human_readable_time + " ECT" #currently running this in an Eastern Centural Time (ECT) timezone, so I am throwing this here for my own internall stuff - may need to be changed for you, if this is used in a different timezone, if this time is accurate to ur timezone.... yeah :P (idm m8)
 
+
+def create_csv(server_ip): # Works for servers if a port specification is needed (such as NGROK IP addresses as well :) 
+    # Replace '.' with '_' and ':' with '__'
+    file_name = server_ip.replace('.', '_').replace(':', '__') + '.csv'
+
+    # Create CSV file
+    with open(file_name, mode='w', newline='') as file:
+        writer = csv.writer(file)
+
+    print(f"CSV file '{file_name}' has been created.")
+
+def formatFileName(ip_address, currentEpochTime): 
+    print("Place holder so my code works")
+
 def write_to_csv(filename, data):
     with open(filename, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
@@ -46,6 +60,7 @@ def makeCSVHeadder(fileName):
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(headers)
+
 
 def pingServer(ip_address,queryEnable): #String, Bool
     
@@ -80,7 +95,9 @@ def pingServer(ip_address,queryEnable): #String, Bool
             #time.sleep(5)  # let ppl read the msg
     return returnArray
 
-    
+
+
+#serverIP - Remove "." and ":" characters from the IP, followed by "_", then the date
     
 
 if __name__ == "__main__":
@@ -98,4 +115,5 @@ if __name__ == "__main__":
     print("Current Epoch Time:", epoch_time)
     print("Human Readable Time: "+  epoch_to_human_readable(epoch_time) )
     
+    create_csv(ip_address)
     
