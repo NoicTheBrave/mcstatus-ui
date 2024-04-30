@@ -120,10 +120,11 @@ def pingServer(ip_address,queryEnable): #String, Bool
 #serverIP - Remove "." and ":" characters from the IP, followed by "_", then the date
     
 
-if __name__ == "__main__":
+def logPlayerActivity(ip_address,toggleQuery):
+#if __name__ == "__main__":
 
-    toggleQuery = False #True
-    ip_address = "festivianservers.net"
+    #toggleQuery = False #True
+    #ip_address = "festivianservers.net"
     serverInfo = pingServer(ip_address, toggleQuery)
     print("------------------")
     for i in serverInfo:
@@ -147,5 +148,7 @@ if __name__ == "__main__":
     csvData.append(human_readable_time)
     makeCSVHeadder(fileName)
     write_to_csv(fileName, csvData)
+    
+    return csvData
     
     
