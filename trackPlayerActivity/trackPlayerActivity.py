@@ -30,11 +30,14 @@ def get_epoch_time():
     return epoch_time
 
 def epoch_to_human_readable(epoch_time):
-    human_readable_time = time.ctime(epoch_time)
-    return human_readable_time + " ECT" #currently running this in an Eastern Centural Time (ECT) timezone, so I am throwing this here for my own internall stuff - may need to be changed for you, if this is used in a different timezone, if this time is accurate to ur timezone.... yeah :P (idm m8)
+    #human_readable_time = time.ctime(epoch_time)
+    
+    human_readable_time = time.strftime("%m-%d-%Y_%H-%M-%S", time.localtime(epoch_time))
+    
+    return human_readable_time 
 
 
-def create_csv(server_ip): # Works for servers if a port specification is needed (such as NGROK IP addresses as well :) 
+""" def create_csv(server_ip): # Works for servers if a port specification is needed (such as NGROK IP addresses as well :) 
     # Replace '.' with '_' and ':' with '__'
     file_name = server_ip.replace('.', '_').replace(':', '__') + '.csv'
 
@@ -43,9 +46,15 @@ def create_csv(server_ip): # Works for servers if a port specification is needed
         writer = csv.writer(file)
 
     print(f"CSV file '{file_name}' has been created.")
-
+ """
 def formatFileName(ip_address, currentEpochTime): 
-    print("Place holder so my code works")
+    #epoch_time = get_epoch_time()
+    formattedTime = epoch_to_human_readable(currentEpochTime)
+    formattedTime = formattedTime[:len(formattedTime)-6] #Trim the seconds and minutes
+    
+    file_name = ip_address.replace('.', '_').replace(':', '__') +"_" + formattedTime + '.csv'
+    #print("Place holder so my code works")
+    return file_name
 
 def write_to_csv(filename, data):
     with open(filename, 'a', newline='') as csvfile:
@@ -54,10 +63,10 @@ def write_to_csv(filename, data):
 
 def makeCSVHeadder(fileName): 
     #filename = 'data.csv'
-    headers = ['Variable1', 'Variable2', 'Variable3', 'Variable4', 'Variable5', 'Variable6']
+    headers = ['Server IP', 'QueryState', 'PlayersOnline', 'PlayerNames', 'Time (Epoch)', 'Time (Human-Readable) [EST]'] #EST -> Only for my regeion that I am developing this code in, idk about others who use this :) 
 
     # Write headers to CSV file
-    with open(filename, 'w', newline='') as csvfile:
+    with open(fileName, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(headers)
 
@@ -112,8 +121,20 @@ if __name__ == "__main__":
     
     # Getting time comes 2nd, cause I wanna know this info after I got the info, not before... 
     epoch_time = get_epoch_time()
+    human_readable_time = epoch_to_human_readable(epoch_time)
     print("Current Epoch Time:", epoch_time)
-    print("Human Readable Time: "+  epoch_to_human_readable(epoch_time) )
+    print("Human Readable Time: "+  human_readable_time + " ECT") #currently running this in an Eastern Centural Time (ECT) timezone, so I am throwing this here for my own internall stuff - may need to be changed for you, if this is used in a different timezone, if this time is accurate to ur timezone.... yeah :P (idm m8)
     
-    create_csv(ip_address)
+    #create_csv(ip_address)
+    fileName = formatFileName(ip_address,epoch_time)
+    print(fileName)
+    
+    csvData = []
+    for i in serverInfo:
+        csvData.append(i)
+    csvData.append(epoch_time)
+    csvData.append(human_readable_time)
+    makeCSVHeadder(fileName)
+    write_to_csv(fileName, csvData)
+    
     
