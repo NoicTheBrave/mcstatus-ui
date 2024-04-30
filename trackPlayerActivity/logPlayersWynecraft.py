@@ -2,7 +2,7 @@ from trackPlayerActivity import *
 
 if __name__ == "__main__": #main function
     toggleQuery = False #True
-    ip_address = "festivianservers.net"
+    ip_address = "play.wynncraft.com"
     
     while True:
         #data = logPlayerActivity(ip_address,toggleQuery) #Log data, reguardless of player count, once per second (or the time delay indicated below)
@@ -15,7 +15,7 @@ if __name__ == "__main__": #main function
         
         #if(data[2] > 0): #if anyone is online, start logging data every second, otherwise, do so for a longer time interval (server is still pinged every second, just, the only time it will store data from second-to-second is when someone is online, which is the smart thing to do inorder to minimize file size for logging data, since this is all I am logging and care about atm)
 
-        time.sleep(1)
+        time.sleep(1) #This is the time delay for logging player data when there is @ least 1 person on the server. If changed, then it will log even FASTER
     
 
 

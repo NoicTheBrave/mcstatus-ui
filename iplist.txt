@@ -3,3 +3,4 @@ mc.hypixel.net
 0.tcp.ngrok.io:18637
 tu-ece.playit.gg
 festivianservers.net
+play.wynncraft.com
