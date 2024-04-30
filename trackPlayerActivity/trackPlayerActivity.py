@@ -168,6 +168,6 @@ def smartLogPlayerActivity(ip_address,toggleQuery): #logs more frequently when p
         makeCSVHeadder(fileName)
         write_to_csv(fileName, csvDataLoggedFormat)
     
-    return csvDataLoggedFormat
+    return csvDataLoggedFormat 
     
     
