@@ -22,15 +22,16 @@ Addons took about an additional ~3-4 hrs (logging server data).
 </p>
 
 * The background of the server pop-up you are pinging changes colors depending on the number of people online! The feature helps you determine if someone is online, and how many, at a glance.
-  * Red = 0
-  * Orange = 1
-  * Yellow = 2
-  * Green = 3
-  * Blue = 4
-  * Purple = 5
-  * Cyan = 6
-  * Lime Green = 7
-  * White = +8
+  * White = 0 (Default color)
+  * Red = 1
+  * Orange = 2
+  * Yellow = 3
+  * Green = 4
+  * Blue = 5
+  * Purple = 6
+  * Cyan = 7
+  * Lime Green = 8
+  * White = +9
 <p align="center">
   <img src="https://github.com/NoicTheBrave/mcstatus-ui/blob/main/images/mcstatus-ui_image4.png" alt="Image">
 </p>
