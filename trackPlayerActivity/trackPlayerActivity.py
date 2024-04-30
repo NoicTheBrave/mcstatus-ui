@@ -160,11 +160,11 @@ def smartLogPlayerActivity(ip_address,toggleQuery): #logs more frequently when p
     if(csvDataLoggedFormat[2] == 0): #if nobody is online
         print("Nobody is online... Checking time... ")
         global previousMinute
-        if(csvDataLoggedFormat[6][14:16] == str(previousMinute)): #if a minute has passed since data was last logged w/ no players online
+        if(csvDataLoggedFormat[5][14:16] != str(previousMinute)): #if a minute has passed since data was last logged w/ no players online
             print("Time Changed! Time was logged ")
             makeCSVHeadder(fileName)
             write_to_csv(fileName, csvDataLoggedFormat)
-            previousMinute = csvDataLoggedFormat[6][14:16] #must update previous minute to current minute on the hour for this to work properly
+            previousMinute = csvDataLoggedFormat[5][14:16] #must update previous minute to current minute on the hour for this to work properly
     else: #someone IS online    
         makeCSVHeadder(fileName)
         write_to_csv(fileName, csvDataLoggedFormat)
