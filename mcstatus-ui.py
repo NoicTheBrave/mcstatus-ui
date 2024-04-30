@@ -95,7 +95,13 @@ def show_popup(button_index):
             if logData_var.get():  # Check if querying is enabled
                 lockUnlockTextBox("\n-----------------------")
                 lockUnlockTextBox(f"\nLogging Player Data...")
+                
+                # Smart Data Logging
                 data = smartLogPlayerActivity(ip_address,toggleQuery)
+                
+                # (Default) Data Logging - Log everything once per second
+                #data = logPlayerActivity(ip_address,toggleQuery)
+                
                 lockUnlockTextBox("\nIP Address: " + str(data[0]))
                 lockUnlockTextBox("\nenableQuere: " + str(data[1]))
                 lockUnlockTextBox("\nPlayersOnline: " + str(data[2]))
