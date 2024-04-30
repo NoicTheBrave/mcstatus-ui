@@ -51,7 +51,7 @@ def pingServer(ip_address,queryEnable): #String, Bool
     status = server.status()
     
     returnArray[2] = status.players.online; 
-    print(f"The server has the following number players online: {status.players.online}")
+    #print(f"The server has the following number players online: {status.players.online}")
     
     if(toggleQuery): 
         try:
