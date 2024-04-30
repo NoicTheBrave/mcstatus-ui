@@ -55,6 +55,12 @@ def formatFileName(ip_address, currentEpochTime):
     
     file_name = ip_address.replace('.', '_').replace(':', '__') +"_" + formattedTime + '.csv'
     #print("Place holder so my code works")
+    
+    temp = getFileDirectory()
+    file_name = temp + "\\logData\\" + file_name
+    
+    print("FileName: " + file_name)
+    
     return file_name
 
 def write_to_csv(filename, data):
@@ -64,6 +70,8 @@ def write_to_csv(filename, data):
 
 def makeCSVHeadder(fileName): 
     #filename = 'data.csv'
+
+    
     doesFileExist = check_file_exists(fileName)
     if(doesFileExist): 
         print("File Exists - No Headder Required") #stop doing its task, skip function. Otherwise, proceed with the next steps
