@@ -36,10 +36,11 @@ def pingServer(ip_address,queryEnable): #String, Bool
     
     returnArray = ["*"]*4
     '''
-    returnArray[0] = ServerIP
-    returnArray[1] = QueryState (as fed to function, NOT what the state of the server's quere config is...)
-    returnArray[2] = # of players
-    returnArray[3] = Player Names (ONLY a important value if query, aka, returnArray[1] == True)
+        -----Information about the returnArray[]-----
+        returnArray[0] = ServerIP
+        returnArray[1] = QueryState (as fed to function, NOT what the state of the server's quere config is...)
+        returnArray[2] = # of players
+        returnArray[3] = Player Names (ONLY a important value if query, aka, returnArray[1] == True)
     '''
     
     returnArray[0] = ip_address; 
@@ -57,7 +58,7 @@ def pingServer(ip_address,queryEnable): #String, Bool
             query = server.query()
             
             returnArray[3] = query.players.names
-            print(f"The server has the following players online: {', '.join(query.players.names)}")
+            #print(f"The server has the following players online: {', '.join(query.players.names)}")
             
         except:
             print(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
