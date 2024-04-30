@@ -22,6 +22,7 @@ Purpose: Based on, @ minimum, # of players online per timepstamp (based on epoch
 # ServerIP, Time (Epoch), Time (Human-Readable), Query State (On/Off), Player #, Player Names
 
 import time
+from mcstatus import JavaServer
 
 def get_epoch_time():
     epoch_time = int(time.time())
@@ -32,6 +33,21 @@ def epoch_to_human_readable(epoch_time):
     return human_readable_time
 
 if __name__ == "__main__":
+
+    toggleQuery = True
+    ip_address = "festivianservers.net"
+    server = JavaServer.lookup(ip_address)
+    status = server.status()
+    print(f"The server has the following number players online: {status.players.online}")
+    
+    # Getting time comes 2nd, cause I wanna know this info after I got the info, not before... 
     epoch_time = get_epoch_time()
     print("Current Epoch Time:", epoch_time)
     print("Human Readable Time: "+ str( epoch_to_human_readable(epoch_time)) + " ECT")
+    if(toggleQuery): 
+        try:
+            query = server.query()
+            print(f"The server has the following players online: {', '.join(query.players.names)}")
+        except:
+            print(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
+            #time.sleep(5)  # let ppl read the msg
