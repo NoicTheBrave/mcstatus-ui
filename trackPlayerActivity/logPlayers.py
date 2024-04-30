@@ -5,7 +5,7 @@ if __name__ == "__main__": #main function
     ip_address = "festivianservers.net"
     
     while True:
-        data = logPlayerActivity(ip_address,toggleQuery)
+        data = smartLogPlayerActivity(ip_address,toggleQuery) #logPlayerActivity(ip_address,toggleQuery)
         
         for i in data:
             print(i)

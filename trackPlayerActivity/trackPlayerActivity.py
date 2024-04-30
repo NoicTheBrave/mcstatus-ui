@@ -147,30 +147,27 @@ def logPlayerActivity(ip_address,toggleQuery):
     
     return csvDataLoggedFormat
 
+
+#Value is (-1) so that if time is ever "0", it will not mess up (not sure if it would simply state "00", but just to be on the safe side)
+previousMinute = -1 #this is used to keep track when the previous time was logged, assuming that nobody is online (Critical part that makes the following function "smart")
 def smartLogPlayerActivity(ip_address,toggleQuery): #logs more frequently when ppl are online, and logs less when ppl are offline - constantly pings server every 1 second reguardless
 
-    serverInfo = pingServer(ip_address, toggleQuery)
+    csvDataLoggedFormat,fileName = formatPlayerLogData(ip_address,toggleQuery)
     
-    # Getting time comes 2nd, cause I wanna know this info after I got the info, not before... 
-    epoch_time = get_epoch_time()
-    human_readable_time = epoch_to_human_readable(epoch_time)
-
-    fileName = formatFileName(ip_address,epoch_time)
-    
-    csvData = []
-    for i in serverInfo:
-        csvData.append(i)
-    csvData.append(epoch_time)
-    csvData.append(human_readable_time)
-    
-    # This is what makes it "smart"
-    if(csvData[2] > 0): #if player is online 
+    print(csvDataLoggedFormat[2])
+    currentMinute = csvDataLoggedFormat[5][14:16]
+    print(currentMinute)
+    if(csvDataLoggedFormat[2] == 0): #if nobody is online
+        print("Nobody is online... Checking time... ")
+        global previousMinute
+        if(csvDataLoggedFormat[6][14:16] == str(previousMinute)): #if a minute has passed since data was last logged w/ no players online
+            print("Time Changed! Time was logged ")
+            makeCSVHeadder(fileName)
+            write_to_csv(fileName, csvDataLoggedFormat)
+    else: #someone IS online    
         makeCSVHeadder(fileName)
-        write_to_csv(fileName, csvData)
+        write_to_csv(fileName, csvDataLoggedFormat)
     
-    makeCSVHeadder(fileName)
-    write_to_csv(fileName, csvData)
-    
-    return csvData
+    return csvDataLoggedFormat
     
     
