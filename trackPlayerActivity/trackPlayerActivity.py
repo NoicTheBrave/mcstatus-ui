@@ -33,25 +33,48 @@ def epoch_to_human_readable(epoch_time):
     return human_readable_time + " ECT" #currently running this in an Eastern Centural Time (ECT) timezone, so I am throwing this here for my own internall stuff - may need to be changed for you, if this is used in a different timezone, if this time is accurate to ur timezone.... yeah :P (idm m8)
 
 def pingServer(ip_address,queryEnable): #String, Bool
+    
+    returnArray = ["*"]*4
+    '''
+    returnArray[0] = ServerIP
+    returnArray[1] = QueryState (as fed to function, NOT what the state of the server's quere config is...)
+    returnArray[2] = # of players
+    returnArray[3] = Player Names (ONLY a important value if query, aka, returnArray[1] == True)
+    '''
+    
+    returnArray[0] = ip_address; 
+    returnArray[1] = queryEnable; 
+    
     toggleQuery = queryEnable
     server = JavaServer.lookup(ip_address)
     status = server.status()
+    
+    returnArray[2] = status.players.online; 
     print(f"The server has the following number players online: {status.players.online}")
     
     if(toggleQuery): 
         try:
             query = server.query()
+            
+            returnArray[3] = query.players.names
             print(f"The server has the following players online: {', '.join(query.players.names)}")
+            
         except:
             print(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
             #time.sleep(5)  # let ppl read the msg
+    return returnArray
+
+    
     
 
 if __name__ == "__main__":
 
     toggleQuery = False #True
     ip_address = "festivianservers.net"
-    pingServer(ip_address, toggleQuery)
+    serverInfo = pingServer(ip_address, toggleQuery)
+    print("------------------")
+    for i in serverInfo:
+        print(i)
 
     
     # Getting time comes 2nd, cause I wanna know this info after I got the info, not before... 
