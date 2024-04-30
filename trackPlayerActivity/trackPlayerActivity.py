@@ -20,3 +20,18 @@ Purpose: Based on, @ minimum, # of players online per timepstamp (based on epoch
 #   Consider pinging the server for quere every hour...? ((Might allow us, the person ))
 
 # ServerIP, Time (Epoch), Time (Human-Readable), Query State (On/Off), Player #, Player Names
+
+import time
+
+def get_epoch_time():
+    epoch_time = int(time.time())
+    return epoch_time
+
+def epoch_to_human_readable(epoch_time):
+    human_readable_time = time.ctime(epoch_time)
+    return human_readable_time
+
+if __name__ == "__main__":
+    epoch_time = get_epoch_time()
+    print("Current Epoch Time:", epoch_time)
+    print("Human Readable Time: "+ str( epoch_to_human_readable(epoch_time)) + " ECT")
