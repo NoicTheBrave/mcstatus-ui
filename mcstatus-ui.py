@@ -87,18 +87,25 @@ def show_popup(button_index):
                     lockUnlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
                 except:
                     lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
-                    time.sleep(5)  # let ppl read the msg
+                    time.sleep(3)  # let ppl read the msg
             else:
                 lockUnlockTextBox(f"\nQuery Skipped!")
 
             
             if logData_var.get():  # Check if querying is enabled
+                lockUnlockTextBox("\n-----------------------")
                 lockUnlockTextBox(f"\nLogging Player Data...")
                 data = smartLogPlayerActivity(ip_address,toggleQuery)
-                for i in data:
-                    lockUnlockTextBox("\n" + str(i))
+                lockUnlockTextBox("\nIP Address: " + str(data[0]))
+                lockUnlockTextBox("\nenableQuere: " + str(data[1]))
+                lockUnlockTextBox("\nPlayersOnline: " + str(data[2]))
+                lockUnlockTextBox("\nPlayerNames: " + str(data[3]))
+                lockUnlockTextBox("\nTime(Epoch): " + str(data[4]))
+                lockUnlockTextBox("\nTime(Human Readable): " + str(data[5]))
+                #for i in data:
+                #    lockUnlockTextBox("\n" + str(i))
             else:
-                lockUnlockTextBox(f"Data is Not being logged.")
+                lockUnlockTextBox(f"\nData is Not being logged.")
 
 
 
