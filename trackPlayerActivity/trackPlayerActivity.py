@@ -21,9 +21,10 @@
 
     # ServerIP, Time (Epoch), Time (Human-Readable), Query State (On/Off), Player #, Player Names
 
-import time
-import csv
-from mcstatus import JavaServer
+import time #for naming and logging time data is collected 
+import csv #for storing data
+import os #for checking to see if file Exists for headder
+from mcstatus import JavaServer #for getting server information
 
 def get_epoch_time():
     epoch_time = int(time.time())
@@ -63,13 +64,23 @@ def write_to_csv(filename, data):
 
 def makeCSVHeadder(fileName): 
     #filename = 'data.csv'
-    headers = ['Server IP', 'QueryState', 'PlayersOnline', 'PlayerNames', 'Time (Epoch)', 'Time (Human-Readable) [EST]'] #EST -> Only for my regeion that I am developing this code in, idk about others who use this :) 
+    doesFileExist = check_file_exists(fileName)
+    if(doesFileExist): 
+        print("File Exists - SNo Headder Required") #stop doing its task, skip function. Otherwise, proceed with the next steps
+    else:
+        
+        headers = ['Server IP', 'QueryState', 'PlayersOnline', 'PlayerNames', 'Time (Epoch)', 'Time (Human-Readable) [EST]'] #EST -> Only for my regeion that I am developing this code in, idk about others who use this :) 
 
-    # Write headers to CSV file
-    with open(fileName, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(headers)
+        # Write headers to CSV file
+        with open(fileName, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(headers)
 
+def check_file_exists(file_path):
+    if os.path.exists(file_path):
+        return True #print("FILE EXISTS")
+    else:
+        return False #print("File does NOT exist")
 
 def pingServer(ip_address,queryEnable): #String, Bool
     
