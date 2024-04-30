@@ -82,6 +82,10 @@ def check_file_exists(file_path):
     else:
         return False #print("File does NOT exist")
 
+def getFileDirectory(): #----------------NEED TO ADD: IF I WANT TO SEPORATE THE MAIN PYTHON FILES FROM THE LOG FILES, i NEED TO USE THIS WHEN WRITING TO FILES, AND MAKE IT WRITE TO THE "logData" folder... FUG
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    return current_directory
+
 def pingServer(ip_address,queryEnable): #String, Bool
     
     returnArray = ["*"]*4
