@@ -45,7 +45,15 @@ This was originally a replit project from a few years ago, and I have since then
   <img src="https://github.com/NoicTheBrave/mcstatus-ui/blob/main/images/mcstatus-ui_image2.png" alt="Image">
 </p>
 
- 
+# New Update: Logging Server Data
+* Ability to log server data (stored in the "logData" folder). Items such as server IP, number of players online, player names, if you enabled query via the UI and more.
+  * NOTE: Checking to see if you enabled attempting to Query is important to determine if a query attempt was made and the server returned nothing, or if there was no query attempt made. Checking this variable will tell us what course of action the user took and what settings were enabled/disabled.
+* Smart Logging: Data is logged once per second if there is more than one player on the server you are pinging. If there is nobody on the server that you are pinging, in an attempt to save storage on the computer running this program, it will only store data once per minute but still ping the server once per second in the event someone does join. 
+* (Basic) Logging (Disabled): Data will be logged once every server ping (Disabled by default - can be enabled in mcstatus-ui.py (search for "if logData_var.get()") 
+<p align="center">
+  <img src="https://github.com/NoicTheBrave/mcstatus-ui/blob/main/images/mcstatus-ui_image6.png" alt="Image">
+</p>
+* Note: Window height is known to be big enough for when Server logging is enabled only. At present, if both Enable Query and Enable Player Data Logging are enabled at the same time, you may need to expand the window height. This was done intentionally, since more often than not, servers will have querying off by default. 
 
 # Resources & References (and core-library used)
 * [The original Replit I created - NOT included for *reasons*]
