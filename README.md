@@ -6,6 +6,8 @@ This version is aimed at constantly pinging the server while the app is running,
 # Background
 This was originally a replit project from a few years ago, and I have since then made a UI for this app several times. I finally decided that enough was enough and that I needed to make a GitHub for it, so I don't have to keep reinventing the wheel every time I want to use this program. This Github is me, redoing this project probably for the 3rd or 5th time now. Each time prior, I manually used a lot of research and development time, but thanks to new tools of the modern age (ChatGPT and API documentation), I was able to create this in an afternoon.  (~4-6 hrs)
 
+Addons took about an additional ~3-4 hrs (logging server data).
+
 # Features
 * Menu to select which server to start pinging
 
