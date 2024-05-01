@@ -8,6 +8,10 @@ This was originally a replit project from a few years ago, and I have since then
 
 Addons took about an additional ~3-4 hrs (logging server data).
 
+# How to Use & Current State of the Project:
+[![Is This Minecraft Tool Treasure or Trash? | How to use mcstatus-ui](https://github.com/NoicTheBrave/mcstatus-ui/blob/main/images/mcstatus-ui_thumbnail.png)](https://www.youtube.com/watch?v=https://youtu.be/MT6v59cxaUY)
+
+
 # Features
 * Menu to select which server to start pinging
 
