@@ -133,18 +133,22 @@ def show_popup(button_index):
 
     # Function to set background color based on the number of players online
     def set_background_color(num_players):
-        if num_players == 0:
-            popup_window.configure(bg="SystemWindow")
-        elif num_players <= 8:
-            # Define a color palette
-            color_palette = ["#FF0000", #RED
+        color_palette = ["#FF0000", #RED
                              "#FFA500", #ORANGE
                              "#FFFF00", #YELLOW
                              "#008000", #GREEN
                              "#0000FF", #BLUE
                              "#900C3F", #Purple
                              "#00FFFF", #CYAN
-                             "#00FF00"] #Lime Green
+                             "#00FF00",#Lime Green
+                             "#FFFFFF"] #White
+        
+        if num_players == 0:
+            popup_window.configure(bg="SystemWindow")
+            popup_window.configure(bg=color_palette[8])
+        elif num_players <= 8:
+            # Define a color palette
+            
                              
 
             # Set background color based on the number of players
