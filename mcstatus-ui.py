@@ -71,51 +71,54 @@ def show_popup(button_index):
             time_text.config(state='disabled')
 
         while True:
-            time_text.config(state='normal')
-            time_text.delete(1.0, tk.END)  # Clears the contents of the text field
+            try: #Hopefully when a server goes down now, or, at the very least, when the pgm fails, it will attempt to ping the server again
+                time_text.config(state='normal')
+                time_text.delete(1.0, tk.END)  # Clears the contents of the text field
 
-            server = JavaServer.lookup(test)
-            status = server.status()
+                server = JavaServer.lookup(test)
+                status = server.status()
 
-            lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
+                lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
 
-            toggleQuery = query_var.get()
-            if toggleQuery:  # Check if querying is enabled
-                lockUnlockTextBox(f"\nAttempting to pull active player names...")
-                try:
-                    query = server.query()
-                    lockUnlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
-                except:
-                    lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
-                    time.sleep(3)  # let ppl read the msg
-            else:
-                lockUnlockTextBox(f"\nQuery Skipped!")
+                toggleQuery = query_var.get()
+                if toggleQuery:  # Check if querying is enabled
+                    lockUnlockTextBox(f"\nAttempting to pull active player names...")
+                    try:
+                        query = server.query()
+                        lockUnlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
+                    except:
+                        lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
+                        time.sleep(3)  # let ppl read the msg
+                else:
+                    lockUnlockTextBox(f"\nQuery Skipped!")
 
-            
-            if logData_var.get():  # Check if querying is enabled
-                lockUnlockTextBox("\n-----------------------")
-                lockUnlockTextBox(f"\nLogging Player Data...")
                 
-                # Smart Data Logging
-                data = smartLogPlayerActivity(ip_address,toggleQuery)
-                
-                # (Default) Data Logging - Log everything once per second
-                #data = logPlayerActivity(ip_address,toggleQuery)
-                
-                lockUnlockTextBox("\nIP Address: " + str(data[0]))
-                lockUnlockTextBox("\nenableQuere: " + str(data[1]))
-                lockUnlockTextBox("\nPlayersOnline: " + str(data[2]))
-                lockUnlockTextBox("\nPlayerNames: " + str(data[3]))
-                lockUnlockTextBox("\nTime(Epoch): " + str(data[4]))
-                lockUnlockTextBox("\nTime(Human Readable): " + str(data[5]))
-                #for i in data:
-                #    lockUnlockTextBox("\n" + str(i))
-            else:
-                lockUnlockTextBox(f"\nData is Not being logged.")
+                if logData_var.get():  # Check if querying is enabled
+                    lockUnlockTextBox("\n-----------------------")
+                    lockUnlockTextBox(f"\nLogging Player Data...")
+                    
+                    # Smart Data Logging
+                    data = smartLogPlayerActivity(ip_address,toggleQuery)
+                    
+                    # (Default) Data Logging - Log everything once per second
+                    #data = logPlayerActivity(ip_address,toggleQuery)
+                    
+                    lockUnlockTextBox("\nIP Address: " + str(data[0]))
+                    lockUnlockTextBox("\nenableQuere: " + str(data[1]))
+                    lockUnlockTextBox("\nPlayersOnline: " + str(data[2]))
+                    lockUnlockTextBox("\nPlayerNames: " + str(data[3]))
+                    lockUnlockTextBox("\nTime(Epoch): " + str(data[4]))
+                    lockUnlockTextBox("\nTime(Human Readable): " + str(data[5]))
+                    #for i in data:
+                    #    lockUnlockTextBox("\n" + str(i))
+                else:
+                    lockUnlockTextBox(f"\nData is Not being logged.")
 
 
 
-            time.sleep(1)  # Time delay for the counter
+                time.sleep(1)  # Time delay for the counter
+            except:
+                print("ERR: Failed to Ping Minecraft server - Attempting to ping...")
     # Start a thread to update the time display
     threading.Thread(target=update_time, daemon=True).start()
 
