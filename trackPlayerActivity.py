@@ -59,7 +59,7 @@ def formatFileName(ip_address, currentEpochTime):
     temp = getFileDirectory()
     file_name = temp + "\\logData\\" + file_name
     
-    print("FileName: " + file_name)
+    #print("FileName: " + file_name)
     
     return file_name
 
@@ -73,10 +73,10 @@ def makeCSVHeadder(fileName):
 
     
     doesFileExist = check_file_exists(fileName)
-    if(doesFileExist): 
-        print("File Exists - No Headder Required") #stop doing its task, skip function. Otherwise, proceed with the next steps
-    else:
-        
+    #if(doesFileExist): 
+    #    print("File Exists - No Headder Required") #stop doing its task, skip function. Otherwise, proceed with the next steps
+    #else:
+    if(doesFileExist != True):    
         headers = ['Server IP', 'QueryState', 'PlayersOnline', 'PlayerNames', 'Time (Epoch)', 'Time (Human-Readable) [EST]'] #EST -> Only for my regeion that I am developing this code in, idk about others who use this :) 
 
         # Write headers to CSV file
@@ -168,7 +168,7 @@ def smartLogPlayerActivity(ip_address,toggleQuery): #logs more frequently when p
     
     #print(csvDataLoggedFormat[2])
     currentMinute = csvDataLoggedFormat[5][14:16]
-    print(currentMinute)
+    #print(currentMinute)
     if(csvDataLoggedFormat[2] == 0): #if nobody is online
         print("Nobody is online... Checking time... ")
         global previousMinute
