@@ -121,7 +121,7 @@ def show_popup(button_index):
                 print("ERR: Failed to Ping Minecraft server - Attempting to ping...")
                 
                 if("invalid command name" in str(e)): 
-                    print("Attempting to CLOSE thread...")
+                    print("Attempting to close thread...")
                     break #might work 
                 
                 #print(e)

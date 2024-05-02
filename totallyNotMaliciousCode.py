@@ -1,3 +1,10 @@
+'''
+Author: Nicholas Chorette
+Date: 5/2/2024 (@ 2:16am - ECT)
+Purpose: To test and see if this program will effect the lag on a minecraft server if it pings it fast enough, or, alternatively, multiple computers. HOWEVER, due to the nature of the internet I  have sat up at my appt, there is likely a change IT has software in place that if I send or recieve too many packets, they will just cut my computer off compleatly, and NOT fix the issue  (problem has happened to other residence in the past, and I am not about to become a statistic) :) 
+
+'''
+
 import threading
 import time
 from mcstatus import JavaServer
