@@ -117,8 +117,15 @@ def show_popup(button_index):
 
 
                 time.sleep(1)  # Time delay for the counter
-            except:
+            except Exception as e:
                 print("ERR: Failed to Ping Minecraft server - Attempting to ping...")
+                
+                if("invalid command name" in str(e)): 
+                    print("Attempting to close thread...")
+                    break #might work 
+                
+                #print(e)
+                time.sleep(0.5) # dont need this thing going too crazy trying to reconnect to the server now...
     # Start a thread to update the time display
     threading.Thread(target=update_time, daemon=True).start()
 
