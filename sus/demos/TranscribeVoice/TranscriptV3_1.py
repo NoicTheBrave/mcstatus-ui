@@ -3,15 +3,19 @@ import json
 
 from vosk import Model, KaldiRecognizer, SetLogLevel
 import Word as custom_Word
+
 import time 
+import datetime
 #from RunSecond_transcriptToBleeps import *  #from transcriptToBleeps import *
 
-def get_epoch_time():
+""" def get_epoch_time():
     epoch_time = int(time.time())
-    return epoch_time
+    return epoch_time """
 
-def epoch_to_human_readable(epoch_time):
-    human_readable_time = time.strftime("%m-%d-%Y_%H-%M-%S-%f", time.localtime(epoch_time))
+def epoch_to_human_readable():
+    #human_readable_time = time.strftime("%m-%d-%Y_%H-%M-%S-%f", time.localtime(epoch_time))
+    epoch_time = time.time()
+    human_readable_time = datetime.datetime.fromtimestamp(epoch_time).strftime("%m-%d-%Y_%H-%M-%S-%f")[:-3]
     return human_readable_time 
 
 #Modified to specify storage folder location (writing "." should put it in the same folder w/ the python file being executed...)
@@ -59,8 +63,8 @@ def transcript(audio_filename, index, time_offset, storeTextFolder):
         #print("FUCK! - " )
         print(word.to_string()) """
         
-    currentTimeEpoch = get_epoch_time()
-    currentTimeHumanReadable = epoch_to_human_readable(currentTimeEpoch)
+    """ currentTimeEpoch = get_epoch_time() """
+    currentTimeHumanReadable = epoch_to_human_readable()
     
     outputFileName = storeTextFolder + currentTimeHumanReadable + ".txt" # Updated to work w/ storeTextFolder 
     #outputFileName = storeTextFolder + "output" + str(index) + ".txt" # Updated to work w/ storeTextFolder 
