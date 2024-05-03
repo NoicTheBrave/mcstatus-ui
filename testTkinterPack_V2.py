@@ -14,9 +14,16 @@ def open_menu():
     menu_button3 = tk.Button(menu_frame, text="Menu Button 3")
     
     # Pack the buttons to position them vertically within the menu frame
-    menu_button1.pack()
-    menu_button2.pack()
-    menu_button3.pack()
+    menu_button1.pack(side=tk.LEFT)
+    menu_button2.pack(side=tk.LEFT)
+    menu_button3.pack(side=tk.LEFT)
+    
+    # Create a frame for the text widget
+    text_frame2 = tk.Frame(menu_window)
+    text_frame2.pack()
+    
+    text_widget = tk.Text(text_frame2, height=5, width=30)
+    text_widget.pack()
 
 # Create the main window
 root = tk.Tk()
