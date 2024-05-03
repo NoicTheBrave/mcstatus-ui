@@ -2,20 +2,17 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog
 import threading
 import time
-
-from trackPlayerActivity import * #Custom thing for logging python data :) 
-
 from mcstatus import JavaServer
 from ttsLib import *
+
 def create_buttons(num_buttons):
     global button_window
     button_window = tk.Toplevel()
     button_window.title("Button Selector")
     button_window.protocol("WM_DELETE_WINDOW", close_program)
     
-    #Top Lable added - Exsessive spaces are there to help expand the window out more artificially VS setting an acutal window size :P 
-    label = tk.Label(button_window, text="                     Press a Button to get started:                     ")
-    label.pack()
+    label = tk.Label(button_window, text="Press a Button to get started:")
+    label.grid(row=0, column=0, columnspan=2)
 
     with open("iplist.txt", "r") as file:
         lines = file.readlines()[1:]  # Skip the first line
@@ -25,93 +22,74 @@ def create_buttons(num_buttons):
             else:
                 ip_address = ""
             button = tk.Button(button_window, text=ip_address, command=lambda idx=i: on_button_press(idx))
-            button.pack()
+            button.grid(row=i+1, column=0)
 
-    # Add "Add Server IP" button
     add_button = tk.Button(button_window, text="Add Server IP", command=add_server_ip)
-    add_button.pack()
+    add_button.grid(row=num_buttons+1, column=0)
 
 def on_button_press(button_index):
     threading.Thread(target=show_popup, args=(button_index,)).start()
 
-prevPlayerCnt = -1 #place holder for function below 
+prevPlayerCnt = -1
+
 def show_popup(button_index):
     ip_address = get_ip_address(button_index)
     popup_window = tk.Toplevel()
     popup_window.title("Button Pressed")
     
-
-    # Label to display the IP address
     ip_label = tk.Label(popup_window, text=f"IP Address: {ip_address}")
-    ip_label.pack()
+    ip_label.grid(row=0, column=1)
 
-    # Checkbutton to toggle querying for players
     query_var = tk.BooleanVar(value=False)  # Default: Querying Disabled
     query_button = tk.Checkbutton(popup_window, text="Enable Query", variable=query_var)
-    query_button.pack()
+    query_button.grid(row=1, column=0)
 
     logData_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
     logData_button = tk.Checkbutton(popup_window, text="Enable Player Data Logging", variable=logData_var)
-    logData_button.pack()
+    logData_button.grid(row=1, column=1)
 
     ttsPlayerStatus_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
     ttsPlayerStatus_button = tk.Checkbutton(popup_window, text="Enable TTS Player Status", variable=ttsPlayerStatus_var)
-    ttsPlayerStatus_button.pack()
+    ttsPlayerStatus_button.grid(row=1, column=2)
 
-
-
-    # Text box to display the running count of seconds
     time_text = tk.Text(popup_window, height=10, state='disabled')
-    time_text.pack()
+    time_text.grid(row=4, column=0, columnspan=4)
 
-
-    def lockUnlockTextBox(message):  # This publishes the text to the location: Allows text box to be edited long enough for pgm to update box - but prevents users from editing text box (they dont need to edite it, if they did it doesnt matter, just looks better this way )
+    def lockUnlockTextBox(message):
         time_text.config(state='normal')
-        time_text.insert(tk.END, f"{message}")  # and replied in {status.latency} ms")
+        time_text.insert(tk.END, f"{message}")
         time_text.config(state='disabled')
     
-    
-    def tts_playerOnline(ip): #3rd part of the pgm to ping the servrt -_-
+    def tts_playerOnline(ip):
         tts_file_name = "ttsAudio.mp3"
-        
         serverData = pingServer(ip_address, False)
-        #print("ServerData: " + str(serverData))
-        
-        """ server = JavaServer.lookup(ip_address)
-        status = server.status()
-        num_players = status.players.online """
         num_players = serverData[2]
-        # ---------TTS-------------- TTS to tell me if someone joined a server or left (this needs to be a togglable setting... cause otherwise this might get outta hand on larger always fluxuating servers... BUT FOR NOW, ITS FINE )
         global prevPlayerCnt
-        if(prevPlayerCnt > num_players): #Player Logged OFF 
+        if(prevPlayerCnt > num_players):
             msg = "Goodbye - Player Logged off " + str(ip)
             try:
                 tts_textToMP3(msg, tts_file_name)
-                #print(tts_file_name)
                 play_music(tts_file_name)
             except:
                 print("TTS made an oopsie! ")
         
-        if(prevPlayerCnt < num_players): #Player Logged ON
+        if(prevPlayerCnt < num_players):
             msg = "Hello! - Player Logged ON " + str(ip)
             try:
                 tts_textToMP3(msg, tts_file_name)
-
                 play_music(tts_file_name)
             except:
                 print("TTS made an oopsie! ")
         prevPlayerCnt = num_players
-        #print("prevPlayerCnt: " + str(prevPlayerCnt))
-    # Function to update the time display
+    
     def update_time(): 
         seconds = 0
-        test = ip_address  # Didn't want to update two legacy vars, lol
+        test = ip_address
         
-
         while True:
-            try: #Hopefully when a server goes down now, or, at the very least, when the pgm fails, it will attempt to ping the server again
+            try:
                 time_text.config(state='normal')
-                time_text.delete(1.0, tk.END)  # Clears the contents of the text field
+                time_text.delete(1.0, tk.END)
 
                 server = JavaServer.lookup(test)
                 status = server.status()
@@ -119,140 +97,100 @@ def show_popup(button_index):
                 lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
                 
                 toggleQuery = query_var.get()
-                if toggleQuery:  # Check if querying is enabled
+                if toggleQuery:
                     lockUnlockTextBox(f"\nAttempting to pull active player names...")
                     try:
                         query = server.query()
                         lockUnlockTextBox(f"The server has the following players online: {', '.join(query.players.names)}")
                     except:
                         lockUnlockTextBox(f"\nERR: Cannot get name of players. please enable 'query' in server.properties")
-                        time.sleep(3)  # let ppl read the msg
+                        time.sleep(3)
                 else:
                     lockUnlockTextBox(f"\nQuery Skipped!")
 
-                
-                if logData_var.get():  # Check if querying is enabled
+                if logData_var.get():
                     lockUnlockTextBox("\n-----------------------")
                     lockUnlockTextBox(f"\nLogging Player Data...")
-                    
-                    # Smart Data Logging
                     data = smartLogPlayerActivity(ip_address,toggleQuery)
-                    
-                    # (Default) Data Logging - Log everything once per second
-                    #data = logPlayerActivity(ip_address,toggleQuery)
-                    
                     lockUnlockTextBox("\nIP Address: " + str(data[0]))
                     lockUnlockTextBox("\nenableQuere: " + str(data[1]))
                     lockUnlockTextBox("\nPlayersOnline: " + str(data[2]))
                     lockUnlockTextBox("\nPlayerNames: " + str(data[3]))
                     lockUnlockTextBox("\nTime(Epoch): " + str(data[4]))
                     lockUnlockTextBox("\nTime(Human Readable): " + str(data[5]))
-                    #for i in data:
-                    #    lockUnlockTextBox("\n" + str(i))
                 else:
                     lockUnlockTextBox(f"\nData is Not being logged.")
 
-
-                #tts_playerOnline(ip_address)#--------TTS Experiment
-                
-                if ttsPlayerStatus_var.get(): #if tts has been enabled 
+                if ttsPlayerStatus_var.get():
                     threading.Thread(target=tts_playerOnline, daemon=True,args = (ip_address,)).start()
                 
-                time.sleep(1)  # Time delay for the counter
+                time.sleep(1)
             except Exception as e:
                 print("ERR: Failed to Ping Minecraft server - Attempting to ping...")
                 
                 if("invalid command name" in str(e)): 
                     print("Attempting to close thread...")
-                    break #might work 
-                
-                #print(e)
-                time.sleep(0.5) # dont need this thing going too crazy trying to reconnect to the server now...
-    # Start a thread to update the time display
+                    break
+                time.sleep(0.5)
+    
     threading.Thread(target=update_time, daemon=True).start()
 
-    
-
-    
-    # Function to set background color based on the number of players online
     def set_background_color(num_players, prevPlayerCnt, ip):
-        
-        color_palette = ["#FF0000", #RED
-                             "#FFA500", #ORANGE
-                             "#FFFF00", #YELLOW
-                             "#008000", #GREEN
-                             "#0000FF", #BLUE
-                             "#900C3F", #Purple
-                             "#00FFFF", #CYAN
-                             "#00FF00",#Lime Green
-                             "#FFFFFF"] #White
+        color_palette = ["#FF0000", "#FFA500", "#FFFF00", "#008000", "#0000FF", "#900C3F", "#00FFFF", "#00FF00", "#FFFFFF"]
         
         if num_players == 0:
-            popup_window.configure(bg="SystemWindow")
             popup_window.configure(bg=color_palette[8])
         elif num_players <= 8:
-            
-            # Set background color based on the number of players
             popup_window.configure(bg=color_palette[num_players - 1])
         
-
-    # Function to update the background color based on the number of players online
     def update_background_color():
-        preciousPlayerCount = -1 #naturally, it would NEVER be this, aka this is a place holder 
+        preciousPlayerCount = -1
                 
         while True:
-            try: #An attempt to make it so that when server members drops to 0, &/or an error occues before the server drops to 0 ppl online, that the color will still update, reguardless of if the server fails to ping (I believe this is where ONE of the issues of not updating the color of the background of the app comes from, after it fails to ping the server, the thread responcible for color changing dies, thus color is no longer changing anymore. This try-catch should help prevent that from happening again...)
+            try:
                 server = JavaServer.lookup(ip_address)
                 status = server.status()
                 num_players = status.players.online
                 set_background_color(num_players, preciousPlayerCount, ip_address)
-                
                 preciousPlayerCount = num_players
             except Exception as e:
                 errMsg =  str(e)
-                if "invalid command name" in errMsg: #aka, window was closed
-                    break #should end this thread - should beak out of the while loop
-                else: # the error was NOT generated from closing the window...  (Legit problem)
-                    #messagebox.showerror("Error", f"Failed to add IP: {e}")
+                if "invalid command name" in errMsg:
+                    break
+                else:
                     print("Color Background has thrown an error:" + errMsg) 
             time.sleep(1)
 
-    # Start a thread to update the background color
     threading.Thread(target=update_background_color, daemon=True).start()
     
-    
-
 def close_program():
     root.destroy()
 
-# Read the number of buttons from the "iplist.txt" file
 def read_num_buttons():
     try:
         with open("iplist.txt", "r") as file:
             lines = file.readlines()
             output = len(lines)
-            return output - 2  # First row is reserved for the "Type '0' to add an IP" message, final row is reserved for fomatting
+            return output - 2
     except FileNotFoundError:
         messagebox.showerror("File Not Found", "The file 'iplist.txt' was not found.")
         return 0
 
-# Get the IP address corresponding to the button index
 def get_ip_address(button_index):
     with open("iplist.txt", "r") as file:
-        lines = file.readlines()[1:]  # Skip the first line       
+        lines = file.readlines()[1:]        
         if button_index < len(lines):
             return lines[button_index].strip()
         else:
             return ""
 
-# Add a new server IP
 def add_server_ip():
     new_ip = simpledialog.askstring("Add Server IP", "Enter the new IP address:")
     if new_ip is not None:
         try:
             with open("iplist.txt", "r+") as file:
                 lines = file.readlines()
-                if lines[-1][-1] != '\n': #Edge case being compendated for when writing to text file 
+                if lines[-1][-1] != '\n':
                     file.write("\n")
                 file.write(new_ip + "\n")
         except Exception as e:
@@ -260,19 +198,16 @@ def add_server_ip():
     button_window.destroy()
     main()
 
-# Main function to create buttons
 def main():
-    num_buttons = read_num_buttons() + 1  # Add one more button for "Add Server IP"
+    num_buttons = read_num_buttons() + 1
     if num_buttons > 0:
         create_buttons(num_buttons)
     else:
         close_program()
 
-# Main window
 root = tk.Tk()
-root.withdraw()  # Hide the root window
+root.withdraw()  
 
-# Call the main function
 main()
 
 root.mainloop()
