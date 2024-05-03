@@ -1,45 +1,41 @@
-Confidence is 58.774% 
-0.48 > 0.87
-ok                   
+Confidence is 54.383% 
+0.48 > 0.878
+okay                 
 
-Confidence is 67.492% 
-0.87 > 0.899
-i                    
-
-Confidence is 100.000% 
-0.899 > 1.26
+Confidence is 80.757% 
+0.895 > 1.26
 updated              
 
-Confidence is 100.000% 
+Confidence is 88.741% 
 1.26 > 1.35
 the                  
 
-Confidence is 100.000% 
-1.35 > 1.59
-code                 
+Confidence is 37.283% 
+1.35 > 1.74
+koto                 
 
 Confidence is 100.000% 
-1.59 > 1.726
-so                   
-
-Confidence is 100.000% 
-1.749 > 1.92
+1.74 > 1.92
 should               
 
 Confidence is 100.000% 
-1.92 > 2.1
+1.92 > 2.13
 only                 
 
 Confidence is 100.000% 
-2.1 > 2.34
+2.13 > 2.31
 make                 
 
-Confidence is 50.663% 
-2.416 > 2.64
+Confidence is 100.000% 
+2.31 > 2.37
+a                    
+
+Confidence is 100.000% 
+2.37 > 2.67
 wave                 
 
 Confidence is 100.000% 
-2.64 > 3.0
+2.67 > 3.0
 file                 
 
 Confidence is 100.000% 
@@ -51,18 +47,18 @@ Confidence is 100.000%
 now                  
 
 Confidence is 100.000% 
-3.75 > 3.81
+3.75 > 3.84
 i                    
 
 Confidence is 100.000% 
-3.81 > 4.14
+3.84 > 4.14
 wonder               
 
 Confidence is 100.000% 
 4.14 > 4.23
 if                   
 
-Confidence is 95.666% 
+Confidence is 100.000% 
 4.23 > 4.38
 it'll                
 
@@ -78,12 +74,16 @@ Confidence is 100.000%
 5.04 > 5.13
 the                  
 
-Confidence is 87.058% 
-5.13 > 5.28
+Confidence is 80.043% 
+5.13 > 5.283
 way                  
 
+Confidence is 48.701% 
+5.283 > 5.339
+a                    
+
 Confidence is 100.000% 
-5.288 > 5.73
+5.339 > 5.73
 file                 
 
 Confidence is 100.000% 
@@ -95,6 +95,6 @@ Confidence is 100.000%
 just                 
 
 Confidence is 100.000% 
-6.03 > 6.54
+6.03 > 6.57
 partially            
 

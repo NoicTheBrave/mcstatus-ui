@@ -6,7 +6,10 @@ import Word as custom_Word
 #from RunSecond_transcriptToBleeps import *  #from transcriptToBleeps import *
 
 def transcript(audio_filename, index, time_offset):
-    model_path = "vosk-model-en-us-0.42-gigaspeech"#vosk-model-small-en-us-0.15"#"models/vosk-model-en-us-0.21"
+    #model_path = "vosk-model-en-us-0.42-gigaspeech" #Biggest & most accurate model (longest to run) (demo ~30-32 sec)
+    #model_path = "vosk-model-small-en-us-0.15" #(probably) Fastest & smallest Model to run [LEAST ACCURATE] (demo ~2 sec - INSANELy fast)
+    model_path = "vosk-model-en-us-0.22" #middle-man: Larger Size, accurate enough, (far more than smallest mode, but runtime is still ~x10 more than fastest model) (demo ~20 sec -> Middle of the road, but definitely on the larger side)
+    
     #audio_filename = "RIP_Riley_ShittingThunder.wav"#"audio/speech_recognition_systems.wav"
 
     model = Model(model_path)
