@@ -5,7 +5,8 @@ from vosk import Model, KaldiRecognizer, SetLogLevel
 import Word as custom_Word
 #from RunSecond_transcriptToBleeps import *  #from transcriptToBleeps import *
 
-def transcript(audio_filename, index, time_offset):
+#Modified to specify storage folder location (writing "." should put it in the same folder w/ the python file being executed...)
+def transcript(audio_filename, index, time_offset, storeFolder):
     #model_path = "vosk-model-en-us-0.42-gigaspeech" #Biggest & most accurate model (longest to run-> slowest) (demo ~30-32 sec)
     model_path = "vosk-model-small-en-us-0.15" #(probably) Fastest & smallest Model to run [LEAST ACCURATE] (demo ~2 sec - INSANELy fast)
     #model_path = "vosk-model-en-us-0.22" #middle-man: Larger Size, accurate enough, (far more than smallest mode, but runtime is still ~x10 more than fastest model) (demo ~20 sec -> Middle of the road, but definitely on the larger side)
@@ -49,7 +50,7 @@ def transcript(audio_filename, index, time_offset):
         #print("FUCK! - " )
         print(word.to_string()) """
         
-    outputFileName = "output" + str(index) + ".txt"
+    outputFileName = storeFolder + "output" + str(index) + ".txt" # Updated to work w/ storeFolder 
     with open(outputFileName, 'w') as file:
         for word in list_of_Words:
             #file.write(str(item) + '\n')

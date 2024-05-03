@@ -1,0 +1,28 @@
+Confidence is 100.000% 
+0.48 > 0.78
+making               
+
+Confidence is 100.000% 
+0.78 > 1.17
+another              
+
+Confidence is 74.126% 
+1.23 > 1.71
+nemo                 
+
+Confidence is 100.000% 
+1.74 > 2.22
+output               
+
+Confidence is 100.000% 
+2.25 > 2.64
+audio                
+
+Confidence is 100.000% 
+2.64 > 3.12
+file                 
+
+Confidence is 74.581% 
+3.18 > 3.66
+ah                   
+
