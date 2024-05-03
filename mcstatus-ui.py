@@ -49,7 +49,7 @@ def create_buttons(num_buttons):
                 if(counter != 0 and (len(lines)) % 3 == 0 and counter == len(lines)): 
                     print("IPs are less than 4")
                     break
-                button = tk.Button(button_frame, text=lines[counter], command=lambda idx=counter: on_button_press(idx), width=10, height=2)
+                button = tk.Button(button_frame, text=lines[counter], command=lambda idx=counter: on_button_press(idx), width=20, height=2)
                 button.pack(side=tk.LEFT, padx=5, pady=5)
                 counter += 1 
                 print(counter)
