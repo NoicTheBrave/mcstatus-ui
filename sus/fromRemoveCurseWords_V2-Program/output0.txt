@@ -1,0 +1,100 @@
+Confidence is 58.774% 
+0.48 > 0.87
+ok                   
+
+Confidence is 67.492% 
+0.87 > 0.899
+i                    
+
+Confidence is 100.000% 
+0.899 > 1.26
+updated              
+
+Confidence is 100.000% 
+1.26 > 1.35
+the                  
+
+Confidence is 100.000% 
+1.35 > 1.59
+code                 
+
+Confidence is 100.000% 
+1.59 > 1.726
+so                   
+
+Confidence is 100.000% 
+1.749 > 1.92
+should               
+
+Confidence is 100.000% 
+1.92 > 2.1
+only                 
+
+Confidence is 100.000% 
+2.1 > 2.34
+make                 
+
+Confidence is 50.663% 
+2.416 > 2.64
+wave                 
+
+Confidence is 100.000% 
+2.64 > 3.0
+file                 
+
+Confidence is 100.000% 
+3.0 > 3.36
+update               
+
+Confidence is 100.000% 
+3.36 > 3.72
+now                  
+
+Confidence is 100.000% 
+3.75 > 3.81
+i                    
+
+Confidence is 100.000% 
+3.81 > 4.14
+wonder               
+
+Confidence is 100.000% 
+4.14 > 4.23
+if                   
+
+Confidence is 95.666% 
+4.23 > 4.38
+it'll                
+
+Confidence is 100.000% 
+4.38 > 4.68
+fully                
+
+Confidence is 100.000% 
+4.68 > 5.04
+override             
+
+Confidence is 100.000% 
+5.04 > 5.13
+the                  
+
+Confidence is 87.058% 
+5.13 > 5.28
+way                  
+
+Confidence is 100.000% 
+5.288 > 5.73
+file                 
+
+Confidence is 100.000% 
+5.73 > 5.85
+or                   
+
+Confidence is 100.000% 
+5.85 > 6.03
+just                 
+
+Confidence is 100.000% 
+6.03 > 6.54
+partially            
+
