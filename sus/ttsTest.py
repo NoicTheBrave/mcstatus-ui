@@ -4,13 +4,13 @@ Date: 5/2/2024
 Purpose: If I would like to add a nice TTS ability to my program, I can. If I want to even just play audio files as well, I now have that ability as well. Extreemly useful if I would like to add TTS, or even play audio of an mp3, to any application :) 
 '''
 
-#pip install pygame
-#pip install gTTS
+'''
+Libraries Used: <--- In the event I need to install them onto a new system :) 
+    pip install pygame
+    pip install gTTS
+'''
 
 from gtts import gTTS
-#from playMP3Pygame import *
-#import os
-
 import pygame
 
 def play_music(file_path):
