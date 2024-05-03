@@ -24,20 +24,46 @@ def create_buttons(num_buttons):
 
     with open("iplist.txt", "r") as file:
         lines = file.readlines()[1:]  # Skip the first line
-        test = [tk.Frame(button_window)]*3 #theoredically, this now represents 3 different frames... depending on which order i PACK, will determine which set of assets will be on top, middle, and bottom, I think... 
+        #test = [tk.Frame(button_window)]*3 #theoredically, this now represents 3 different frames... depending on which order i PACK, will determine which set of assets will be on top, middle, and bottom, I think... 
         temp = [] #*(range(num_buttons)%3)# should help me make the length of button part only 3 before rolling over to next row
         rowShifter = 0 
-        for i in range(num_buttons): #button making loop
+        counter = 0
+        
+        #for i in range(num_buttons):
+        for i in range(math.floor(len(lines)/3) + 1): #button making loop
             if i < len(lines):
                 ip_address = lines[i].strip()
             else:
                 ip_address = ""
-            print(math.floor(i/3))
+            #print(math.floor(i/3))
             
-            button = tk.Button(test[math.floor(i/3)], text=ip_address, command=lambda idx=i: on_button_press(idx))
+            button_frame = tk.Frame(button_window)
+            button_frame.pack()
+            
+            
+            for j in range(3):#horixontal control? Or Vert? (we're gonna find out)
+                #button = tk.Button(button_frame, text=f"Button {i*3 + j + 1}", command=button_click, width=10, height=2)
+                print(((len(lines)) % 3 == 0))
+                print(len(lines))
+                
+                if(counter != 0 and (len(lines)) % 3 == 0 and counter == len(lines)): 
+                    print("IPs are less than 4")
+                    break
+                button = tk.Button(button_frame, text=lines[counter], command=lambda idx=counter: on_button_press(idx), width=10, height=2)
+                button.pack(side=tk.LEFT, padx=5, pady=5)
+                counter += 1 
+                print(counter)
+                if(counter == len(lines)): #prevents from going past +1 buttons (due to the note I put in the iplist.txt)
+                    print("End of buttons")
+                    break
+                 
+                #button = tk.Button(menu_frame, text=ip_address, command=lambda idx=i: on_button_press(idx))
+            
+            
+            """ button = tk.Button(test[math.floor(i/3)], text=ip_address, command=lambda idx=i: on_button_press(idx))
             
             if((i % 3 == 0) and (i != 0)):
-                test[math.floor(i/3)].pack()
+                test[math.floor(i/3)].pack() """
             """ if((i % 3 == 0) and (i != 0)): 
                 for j in range(3): #Packing loop
                     temp[j].pack(side=tk.LEFT) 
