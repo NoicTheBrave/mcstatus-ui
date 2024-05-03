@@ -48,20 +48,22 @@ def show_popup(button_index):
     # Checkbutton to toggle querying for players
     query_var = tk.BooleanVar(value=False)  # Default: Querying Disabled
     query_button = tk.Checkbutton(popup_window, text="Enable Query", variable=query_var)
-    query_button.pack()
+    query_button.pack(side=tk.LEFT)
 
+    
+    
     logData_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
     logData_button = tk.Checkbutton(popup_window, text="Enable Player Data Logging", variable=logData_var)
-    logData_button.pack()
+    logData_button.pack(side=tk.LEFT)
 
     ttsPlayerStatus_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
     ttsPlayerStatus_button = tk.Checkbutton(popup_window, text="Enable TTS Player Status", variable=ttsPlayerStatus_var)
-    ttsPlayerStatus_button.pack()
+    ttsPlayerStatus_button.pack(side=tk.LEFT)
 
 
 
     # Text box to display the running count of seconds
-    time_text = tk.Text(popup_window, height=10, state='disabled')
+    time_text = tk.Text(popup_window, height=10,width = 300, state='disabled')
     time_text.pack()
 
 

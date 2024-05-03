@@ -42,15 +42,15 @@ def show_popup(button_index):
 
     query_var = tk.BooleanVar(value=False)  # Default: Querying Disabled
     query_button = tk.Checkbutton(popup_window, text="Enable Query", variable=query_var)
-    query_button.grid(row=1, column=0)
+    query_button.grid(row=1, column=0, columnspan=1)
 
     logData_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
     logData_button = tk.Checkbutton(popup_window, text="Enable Player Data Logging", variable=logData_var)
-    logData_button.grid(row=1, column=1)
+    logData_button.grid(row=1, column=1, columnspan=1)
 
     ttsPlayerStatus_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
     ttsPlayerStatus_button = tk.Checkbutton(popup_window, text="Enable TTS Player Status", variable=ttsPlayerStatus_var)
-    ttsPlayerStatus_button.grid(row=1, column=2)
+    ttsPlayerStatus_button.grid(row=1, column=2, columnspan=2)
 
     time_text = tk.Text(popup_window, height=10, state='disabled')
     time_text.grid(row=4, column=0, columnspan=4)
