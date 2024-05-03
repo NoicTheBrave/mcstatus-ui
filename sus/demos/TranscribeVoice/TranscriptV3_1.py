@@ -64,9 +64,9 @@ def transcript(audio_filename, index, time_offset, storeTextFolder):
         print(word.to_string()) """
         
     """ currentTimeEpoch = get_epoch_time() """
-    currentTimeHumanReadable = epoch_to_human_readable()
+    #currentTimeHumanReadable = epoch_to_human_readable()
     
-    outputFileName = storeTextFolder + currentTimeHumanReadable + ".txt" # Updated to work w/ storeTextFolder 
+    outputFileName = storeTextFolder +".txt" # Updated to work w/ storeTextFolder 
     #outputFileName = storeTextFolder + "output" + str(index) + ".txt" # Updated to work w/ storeTextFolder 
     with open(outputFileName, 'w') as file:
         for word in list_of_Words:

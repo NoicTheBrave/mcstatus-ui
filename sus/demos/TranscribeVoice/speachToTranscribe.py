@@ -22,17 +22,6 @@ storeText = currentFileDirectory + "\\textFiles\\"
 
 counter = 0 #again, i am lazy
 
-def get_epoch_time():
-    epoch_time = int(time.time())
-    return epoch_time
-
-def epoch_to_human_readable(epoch_time):
-    #human_readable_time = time.ctime(epoch_time)
-    
-    human_readable_time = time.strftime("%m-%d-%Y_%H-%M-%S", time.localtime(epoch_time))
-    
-    return human_readable_time 
-
 
 while True: 
 
@@ -46,8 +35,9 @@ while True:
             #audio = r.listen(source,timeout=0.5)
             audio = r.listen(source)        
                     # Creates file name based on counter, in an attempt to log and NOT override other audio files... :) 
-            audioFileName = storeAudio + audioname + str(counter) + fileExtension
-            
+            #audioFileName = storeAudio + audioname + str(counter) + fileExtension
+            time_humanReadable = epoch_to_human_readable()
+            audioFileName = storeAudio + time_humanReadable + fileExtension
                     # write audio to a WAV file
             with open(audioFileName, "wb") as f:
                 f.write(audio.get_wav_data())
@@ -56,12 +46,12 @@ while True:
 
             """  transcript(audioFileName, counter, 0, storeText) """
             
-            def transcribe_thread(audio_file, index, offset):
-                transcript(audio_file, index, offset, storeText)
+            def transcribe_thread(audio_file, index, offset, fileLocation):
+                transcript(audio_file, index, offset, fileLocation)
             
             # Create a thread for transcription
             try:
-                threading.Thread(target=transcribe_thread, args=(audioFileName, counter, 0)).start()
+                threading.Thread(target=transcribe_thread, args=(audioFileName, counter, 0, storeText + time_humanReadable)).start()
             except:
                 print("Threading error occured ")
                 
