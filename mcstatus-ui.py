@@ -59,16 +59,17 @@ def show_popup(button_index):
     time_text.pack()
 
 
+    def lockUnlockTextBox(message):  # This publishes the text to the location: Allows text box to be edited long enough for pgm to update box - but prevents users from editing text box (they dont need to edite it, if they did it doesnt matter, just looks better this way )
+        time_text.config(state='normal')
+        time_text.insert(tk.END, f"{message}")  # and replied in {status.latency} ms")
+        time_text.config(state='disabled')
 
     # Function to update the time display
     def update_time():
         seconds = 0
         test = ip_address  # Didn't want to update two legacy vars, lol
 
-        def lockUnlockTextBox(message):  # This publishes the text to the location: Allows text box to be edited long enough for pgm to update box - but prevents users from editing text box (they dont need to edite it, if they did it doesnt matter, just looks better this way )
-            time_text.config(state='normal')
-            time_text.insert(tk.END, f"{message}")  # and replied in {status.latency} ms")
-            time_text.config(state='disabled')
+        
 
         while True:
             try: #Hopefully when a server goes down now, or, at the very least, when the pgm fails, it will attempt to ping the server again
@@ -157,10 +158,18 @@ def show_popup(button_index):
     # Function to update the background color based on the number of players online
     def update_background_color():
         while True:
-            server = JavaServer.lookup(ip_address)
-            status = server.status()
-            num_players = status.players.online
-            set_background_color(num_players)
+            try: #An attempt to make it so that when server members drops to 0, &/or an error occues before the server drops to 0 ppl online, that the color will still update, reguardless of if the server fails to ping (I believe this is where ONE of the issues of not updating the color of the background of the app comes from, after it fails to ping the server, the thread responcible for color changing dies, thus color is no longer changing anymore. This try-catch should help prevent that from happening again...)
+                server = JavaServer.lookup(ip_address)
+                status = server.status()
+                num_players = status.players.online
+                set_background_color(num_players)
+            except Exception as e:
+                errMsg =  str(e)
+                if "invalid command name" in errMsg: #aka, window was closed
+                    break #should end this thread - should beak out of the while loop
+                else: # the error was NOT generated from closing the window...  (Legit problem)
+                    #messagebox.showerror("Error", f"Failed to add IP: {e}")
+                    print("Color Background has thrown an error:" + errMsg) 
             time.sleep(1)
 
     # Start a thread to update the background color
