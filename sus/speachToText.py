@@ -7,10 +7,13 @@ Purpose: To record audio input from the user, and to convert it into text. Not s
 
 
 Notes: 
-if this is NOT working, for windows users, go to Settings -> System -> Sound, the scroll to "Input"
-From there, you can select the mic the system SHOULD recognize as the primary mic it will try to use for ANY application you open going forwards so long as the mic is connected to the PC (to my understanding)
-You can ALSO increase and decrease mic audio output as well from here, apparently...? (it is NOT system volume - I checked via turning up system volume via wireless headset, the presumed mic volume slider DIDNT move when I increased system output audio sooooo YIPPIE! (helps w/ YT vids) - idk why @ present it was/IS @ 76%, weird #) 
-
+* If this is NOT working, for windows users, go to Settings -> System -> Sound, the scroll to "Input"
+    From there, you can select the mic the system SHOULD recognize as the primary mic it will try to use for ANY application you open going forwards so long as the mic is connected to the PC (to my understanding)
+    You can ALSO increase and decrease mic audio output as well from here, apparently...? (it is NOT system volume - I checked via turning up system volume via wireless headset, the presumed mic volume slider DIDNT move when I increased system output audio sooooo YIPPIE! (helps w/ YT vids) - idk why @ present it was/IS @ 76%, weird #) 
+* https://pypi.org/project/SpeechRecognition/ 
+    * Mentions "Transcribe an audio file" & "save audio data to an audio file". 
+        * Implies to me that I can do both, maybe, hopefully, at the same time (might have to be 2 seporate processes... but ya know!)
+            * Would REALLY help the auto-bleeper pgm I made along, and maybe be able to bring to life the "live bleeper" via simply delaying everything a bit to bleep myself out! (would be nice) 
 
 '''
 '''
