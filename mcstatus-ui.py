@@ -6,7 +6,7 @@ import time
 from trackPlayerActivity import * #Custom thing for logging python data :) 
 
 from mcstatus import JavaServer
-
+from ttsLib import *
 def create_buttons(num_buttons):
     global button_window
     button_window = tk.Toplevel()
@@ -34,6 +34,7 @@ def create_buttons(num_buttons):
 def on_button_press(button_index):
     threading.Thread(target=show_popup, args=(button_index,)).start()
 
+prevPlayerCnt = -1 #place holder for function below 
 def show_popup(button_index):
     ip_address = get_ip_address(button_index)
     popup_window = tk.Toplevel()
@@ -53,6 +54,9 @@ def show_popup(button_index):
     logData_button = tk.Checkbutton(popup_window, text="Enable Player Data Logging", variable=logData_var)
     logData_button.pack()
     
+    ttsPlayerStatus_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
+    ttsPlayerStatus_button = tk.Checkbutton(popup_window, text="Enable TTS Player Status", variable=ttsPlayerStatus_var)
+    ttsPlayerStatus_button.pack()
 
     # Text box to display the running count of seconds
     time_text = tk.Text(popup_window, height=10, state='disabled')
@@ -63,12 +67,43 @@ def show_popup(button_index):
         time_text.config(state='normal')
         time_text.insert(tk.END, f"{message}")  # and replied in {status.latency} ms")
         time_text.config(state='disabled')
+    
+    
+    def tts_playerOnline(ip): #3rd part of the pgm to ping the servrt -_-
+        tts_file_name = "ttsAudio.mp3"
+        
+        serverData = pingServer(ip_address, False)
+        #print("ServerData: " + str(serverData))
+        
+        """ server = JavaServer.lookup(ip_address)
+        status = server.status()
+        num_players = status.players.online """
+        num_players = serverData[2]
+        # ---------TTS-------------- TTS to tell me if someone joined a server or left (this needs to be a togglable setting... cause otherwise this might get outta hand on larger always fluxuating servers... BUT FOR NOW, ITS FINE )
+        global prevPlayerCnt
+        if(prevPlayerCnt > num_players): #Player Logged OFF 
+            msg = "Goodbye - Player Logged off " + str(ip)
+            try:
+                tts_textToMP3(msg, tts_file_name)
+                #print(tts_file_name)
+                play_music(tts_file_name)
+            except:
+                print("TTS made an oopsie! ")
+        
+        if(prevPlayerCnt < num_players): #Player Logged ON
+            msg = "Hello! - Player Logged ON " + str(ip)
+            try:
+                tts_textToMP3(msg, tts_file_name)
 
+                play_music(tts_file_name)
+            except:
+                print("TTS made an oopsie! ")
+        prevPlayerCnt = num_players
+        #print("prevPlayerCnt: " + str(prevPlayerCnt))
     # Function to update the time display
     def update_time(): 
         seconds = 0
         test = ip_address  # Didn't want to update two legacy vars, lol
-
         
 
         while True:
@@ -80,7 +115,7 @@ def show_popup(button_index):
                 status = server.status()
 
                 lockUnlockTextBox(f"The server has the following number players online: {status.players.online}")
-
+                
                 toggleQuery = query_var.get()
                 if toggleQuery:  # Check if querying is enabled
                     lockUnlockTextBox(f"\nAttempting to pull active player names...")
@@ -116,7 +151,11 @@ def show_popup(button_index):
                     lockUnlockTextBox(f"\nData is Not being logged.")
 
 
-
+                #tts_playerOnline(ip_address)#--------TTS Experiment
+                
+                if ttsPlayerStatus_var.get(): #if tts has been enabled 
+                    threading.Thread(target=tts_playerOnline, daemon=True,args = (ip_address,)).start()
+                
                 time.sleep(1)  # Time delay for the counter
             except Exception as e:
                 print("ERR: Failed to Ping Minecraft server - Attempting to ping...")
@@ -132,8 +171,10 @@ def show_popup(button_index):
 
     
 
+    
     # Function to set background color based on the number of players online
-    def set_background_color(num_players):
+    def set_background_color(num_players, prevPlayerCnt, ip):
+        
         color_palette = ["#FF0000", #RED
                              "#FFA500", #ORANGE
                              "#FFFF00", #YELLOW
@@ -148,21 +189,23 @@ def show_popup(button_index):
             popup_window.configure(bg="SystemWindow")
             popup_window.configure(bg=color_palette[8])
         elif num_players <= 8:
-            # Define a color palette
             
-                             
-
             # Set background color based on the number of players
             popup_window.configure(bg=color_palette[num_players - 1])
+        
 
     # Function to update the background color based on the number of players online
     def update_background_color():
+        preciousPlayerCount = -1 #naturally, it would NEVER be this, aka this is a place holder 
+                
         while True:
             try: #An attempt to make it so that when server members drops to 0, &/or an error occues before the server drops to 0 ppl online, that the color will still update, reguardless of if the server fails to ping (I believe this is where ONE of the issues of not updating the color of the background of the app comes from, after it fails to ping the server, the thread responcible for color changing dies, thus color is no longer changing anymore. This try-catch should help prevent that from happening again...)
                 server = JavaServer.lookup(ip_address)
                 status = server.status()
                 num_players = status.players.online
-                set_background_color(num_players)
+                set_background_color(num_players, preciousPlayerCount, ip_address)
+                
+                preciousPlayerCount = num_players
             except Exception as e:
                 errMsg =  str(e)
                 if "invalid command name" in errMsg: #aka, window was closed
@@ -174,6 +217,7 @@ def show_popup(button_index):
 
     # Start a thread to update the background color
     threading.Thread(target=update_background_color, daemon=True).start()
+    
     
 
 def close_program():
