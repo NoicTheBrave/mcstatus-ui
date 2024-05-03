@@ -32,6 +32,7 @@ def tts_textToMP3(text,fileName):
     speech.save(fileName)
     #speech.save("example.mp3")  
 
+
 """ tts_file_name = "example.mp3" ##"your_file_path.mp3"  # Change this to the path of your MP3 file
 msg = "Hello! This is an example of text-to-speech using Python."
 try:
