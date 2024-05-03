@@ -1,0 +1,24 @@
+Confidence is 81.030% 
+0.36 > 0.894
+initially            
+
+Confidence is 50.343% 
+0.9 > 1.076
+was                  
+
+Confidence is 100.000% 
+1.076 > 1.77
+scripted             
+
+Confidence is 53.050% 
+2.1 > 2.43
+saying               
+
+Confidence is 83.789% 
+2.434 > 2.464
+or                   
+
+Confidence is 100.000% 
+2.464 > 3.0
+something            
+

@@ -1,0 +1,12 @@
+Confidence is 91.864% 
+0.48 > 0.984
+neocon               
+
+Confidence is 62.284% 
+0.984 > 1.14
+that's               
+
+Confidence is 100.000% 
+1.14 > 1.71
+interesting          
+

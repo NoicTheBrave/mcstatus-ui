@@ -1,0 +1,16 @@
+Confidence is 86.475% 
+0.0 > 0.21
+the                  
+
+Confidence is 100.000% 
+0.214 > 0.54
+okay                 
+
+Confidence is 100.000% 
+0.54 > 0.72
+that's               
+
+Confidence is 100.000% 
+0.72 > 1.29
+interesting          
+

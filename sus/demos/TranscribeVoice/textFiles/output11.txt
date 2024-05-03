@@ -1,16 +1,16 @@
-Confidence is 100.000% 
-35.21705215419501 > 35.30705215419501
-i                    
+Confidence is 69.304% 
+0.0 > 0.195
+the                  
+
+Confidence is 74.414% 
+0.195 > 0.62
+neocon               
+
+Confidence is 56.319% 
+0.62 > 0.78
+that's               
 
 Confidence is 100.000% 
-35.30705215419501 > 35.48705215419501
-say                  
-
-Confidence is 100.000% 
-35.48705215419501 > 35.81705215419501
-that                 
-
-Confidence is 58.887% 
-36.267052154195014 > 36.477052154195015
-it                   
+0.78 > 1.35
+interesting          
 

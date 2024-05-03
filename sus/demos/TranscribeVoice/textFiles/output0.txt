@@ -1,24 +1,4 @@
-Confidence is 69.261% 
-0.0 > 0.21
-the                  
-
 Confidence is 100.000% 
-0.219 > 0.39
-should               
-
-Confidence is 100.000% 
-0.39 > 0.51
-be                   
-
-Confidence is 52.813% 
-0.51 > 0.863
-thrilling            
-
-Confidence is 100.000% 
-0.863 > 1.14
-never                
-
-Confidence is 100.000% 
-1.14 > 1.8
-transcription        
+0.39 > 0.87
+please               
 

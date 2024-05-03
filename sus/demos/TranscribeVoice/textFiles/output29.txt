@@ -1,0 +1,24 @@
+Confidence is 100.000% 
+0.48 > 0.986
+initially            
+
+Confidence is 60.065% 
+0.99 > 1.194
+was                  
+
+Confidence is 100.000% 
+1.194 > 1.86
+scripted             
+
+Confidence is 49.668% 
+2.22 > 2.52
+saying               
+
+Confidence is 73.317% 
+2.524 > 2.58
+or                   
+
+Confidence is 100.000% 
+2.58 > 3.12
+something            
+

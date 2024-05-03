@@ -1,64 +1,88 @@
 Confidence is 100.000% 
-114.47455782312926 > 114.59455782312926
-and                  
-
-Confidence is 100.000% 
-114.59455782312926 > 114.68455782312927
-of                   
-
-Confidence is 100.000% 
-114.68455782312927 > 115.01455782312927
-course               
-
-Confidence is 93.076% 
-115.10055782312926 > 115.15855782312926
-i                    
-
-Confidence is 48.760% 
-115.15855782312926 > 115.34455782312926
-guess                
-
-Confidence is 44.316% 
-115.43455782312927 > 115.51455782312927
-well                 
-
-Confidence is 41.084% 
-115.51455782312927 > 115.67455782312926
-worlds               
-
-Confidence is 100.000% 
-115.67455782312926 > 116.27455782312926
-processing           
-
-Confidence is 87.356% 
-116.27455782312926 > 116.39455782312926
-it's                 
-
-Confidence is 100.000% 
-116.39855782312927 > 116.57455782312925
-not                  
-
-Confidence is 100.000% 
-116.57455782312925 > 116.93455782312927
-recording            
-
-Confidence is 100.000% 
-116.93455782312927 > 117.26455782312927
-anything             
-
-Confidence is 100.000% 
-117.26455782312927 > 117.38455782312926
+0.48 > 0.81
 that                 
 
 Confidence is 100.000% 
-117.38455782312926 > 117.47455782312926
-i'm                  
+0.81 > 0.99
+to                   
 
 Confidence is 100.000% 
-117.47455782312926 > 117.83455782312926
-saying               
+0.99 > 1.41
+secure               
 
 Confidence is 100.000% 
-117.83455782312926 > 118.22455782312926
-so                   
+1.41 > 1.71
+these                
+
+Confidence is 100.000% 
+1.71 > 2.1
+rights               
+
+Confidence is 100.000% 
+2.19 > 2.79
+governments          
+
+Confidence is 100.000% 
+2.82 > 3.0
+are                  
+
+Confidence is 100.000% 
+3.0 > 3.78
+instituted           
+
+Confidence is 100.000% 
+3.78 > 4.23
+among                
+
+Confidence is 100.000% 
+4.23 > 4.65
+men                  
+
+Confidence is 100.000% 
+5.19 > 5.73
+deriving             
+
+Confidence is 100.000% 
+5.73 > 5.88
+their                
+
+Confidence is 100.000% 
+5.88 > 6.75
+powers               
+
+Confidence is 100.000% 
+6.96 > 7.23
+their                
+
+Confidence is 100.000% 
+7.23 > 7.56
+just                 
+
+Confidence is 100.000% 
+7.56 > 8.19
+powers               
+
+Confidence is 100.000% 
+8.28 > 8.58
+from                 
+
+Confidence is 100.000% 
+8.58 > 8.82
+the                  
+
+Confidence is 100.000% 
+8.97 > 9.66
+consent              
+
+Confidence is 100.000% 
+9.72 > 9.9
+of                   
+
+Confidence is 100.000% 
+9.9 > 10.02
+the                  
+
+Confidence is 100.000% 
+10.02 > 10.56
+governed             
 

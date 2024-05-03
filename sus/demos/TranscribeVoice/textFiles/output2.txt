@@ -1,8 +1,12 @@
-Confidence is 62.154% 
-2.9606349206349205 > 3.2306349206349205
-please               
+Confidence is 100.000% 
+0.45 > 0.63
+what                 
 
 Confidence is 100.000% 
-3.2306349206349205 > 3.5006349206349205
-work                 
+0.63 > 0.72
+the                  
+
+Confidence is 100.000% 
+0.72 > 1.05
+fuck                 
 

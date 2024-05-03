@@ -1,0 +1,16 @@
+Confidence is 100.000% 
+0.06 > 0.75
+scripted             
+
+Confidence is 100.000% 
+1.11 > 1.41
+thing                
+
+Confidence is 100.000% 
+1.41 > 1.47
+or                   
+
+Confidence is 100.000% 
+1.47 > 1.98
+something            
+
