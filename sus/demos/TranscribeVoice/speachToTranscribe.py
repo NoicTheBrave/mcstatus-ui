@@ -33,9 +33,10 @@ while True:
     # Creates file name based on counter, in an attempt to log and NOT override other audio files... :) 
     audioFileName = audioname + str(counter) + fileExtension
     
-    
+    tst = storeAudio + audioFileName
+    print(tst)
     # write audio to a WAV file
-    with open(storeAudio + audioFileName, "wb") as f:
+    with open(tst, "wb") as f:
         f.write(audio.get_wav_data())
         
         
@@ -43,7 +44,7 @@ while True:
     
     #NOTE: If this section, the transcribing section, begins to take WAY too long,k or even just a bit effects my voice recording (aka, voice isnt being fully recorded cause it's taking a second or more to process things...)... THEN it's likely that I will have to make a threadded thing for this just to make sure that everything gets taken care of... heck, MAYBE even audio recording needs to be threadded as well, if writing the audio file takes too long that is... just layer one ontop of the other, and IDEALY, have ONE MAIN AUDIO FILE thread just constantly running (start it before the loop) so that we can compare later, or something idk man... (for more accurate audio recording / lining up audios and stuff later? idk man... idk how to line-up audio like that, I am just spit-balling... and if  I can, idk how long that process takes... :/ )
     
-    song = AudioSegment.from_file(audioname) #SHOULD ALWAYS be one of these 
+    song = AudioSegment.from_file(tst) #SHOULD ALWAYS be one of these 
 
     # pydub does things in milliseconds 
     time_div = song.duration_seconds*1.0 #does it need to be a float? <--- combine some variables from the "demo" ver. to simplify things
@@ -52,7 +53,7 @@ while True:
 
     time_offset = counter * time_div#again, i am lazy 
     #threads[i] = Thread(target=transcript, args=(audioBuffer[counter], counter, time_offset))
-    transcript(audioname, counter, time_offset)
+    transcript(tst, counter, time_offset, storeText)
     
     counter = counter + 1
         
