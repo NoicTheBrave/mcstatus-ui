@@ -18,12 +18,6 @@ from ttsLib import *
 #pygame stuff
 
 
-file_name = "example.mp3" ##"your_file_path.mp3"  # Change this to the path of your MP3 file
-msg = "Hello! This is an example of text-to-speech using Python."
-
-tts_textToMP3(msg, file_name)
-
-play_music(file_name)
 
 
 
@@ -66,13 +60,32 @@ while True:
             
             def transcribe_thread(audio_file, index, offset, fileLocation):
                 transcript(audio_file, index, offset, fileLocation)
-            
+                
+                
+                #-----------This is where the mimicry comes into play and differs from the speachToTranscribe.py file :P 
+                from readLogFiles_wordsOnly import read_verbal_lines
+                msg = read_verbal_lines(textFileName)
+                print(msg)
+                
+                
+                tts_file_name = "example.mp3" ##"your_file_path.mp3"  # Change this to the path of your MP3 file
+                #msg = "Hello! This is an example of text-to-speech using Python."
+                try:
+                    tts_textToMP3(msg, tts_file_name)
+
+                    play_music(tts_file_name)
+                except:
+                    print("TTS made an oopsie! ")
             # Create a thread for transcription
+            textFileName = storeText + time_humanReadable +".txt"
             try:
-                threading.Thread(target=transcribe_thread, args=(audioFileName, counter, 0, storeText + time_humanReadable)).start()
+                threading.Thread(target=transcribe_thread, args=(audioFileName, counter, 0, textFileName )).start()
             except:
                 print("Threading error occured ")
-                
+        
+        
+            
+              
         except sr.WaitTimeoutError:
             print("ERR: No Voice detected - will prompt again ")
 

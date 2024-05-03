@@ -51,7 +51,7 @@ while True:
             
             # Create a thread for transcription
             try:
-                threading.Thread(target=transcribe_thread, args=(audioFileName, counter, 0, storeText + time_humanReadable)).start()
+                threading.Thread(target=transcribe_thread, args=(audioFileName, counter, 0, storeText + time_humanReadable +".txt" )).start()
             except:
                 print("Threading error occured ")
                 
