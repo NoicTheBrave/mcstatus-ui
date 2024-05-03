@@ -142,7 +142,7 @@ def show_popup(button_index):
         # ---------TTS-------------- TTS to tell me if someone joined a server or left (this needs to be a togglable setting... cause otherwise this might get outta hand on larger always fluxuating servers... BUT FOR NOW, ITS FINE )
         global prevPlayerCnt
         if(prevPlayerCnt > num_players): #Player Logged OFF 
-            msg = "Goodbye - Player Logged off " + str(ip)
+            msg = "Goodbye - A Player Has Left the Game on " + str(ip)
             try:
                 tts_textToMP3(msg, tts_file_name)
                 #print(tts_file_name)
@@ -151,7 +151,7 @@ def show_popup(button_index):
                 print("TTS made an oopsie! ")
         
         if(prevPlayerCnt < num_players): #Player Logged ON
-            msg = "Hello! - Player Logged ON " + str(ip)
+            msg = "Hello! - A Player Has Joined the Game on " + str(ip)
             try:
                 tts_textToMP3(msg, tts_file_name)
 
