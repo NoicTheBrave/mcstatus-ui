@@ -1,4 +1,18 @@
+'''
+Author: Nicholas Chorette
+Date: 5/2/2024
+Purpose: To record audio input from the user, and to convert it into text. Not sure how well this will actually translate into transcribing, if I saw it fitting to do so... or if it even can... but regaurdless of what I think it should be able to CAN and cannot do isn't my main priority atm... Just wanted to see if it even worked hoenstly :) 
+- Want to be able to save the audio file, if possible, and the text, and if text is saved, just make it a transcribed file w/ timestamps and all that per word said... That would be awesome honestly... 
+- if Possible, then one could upgrade ANOTHER project of mine... and make it "real-time" enough, that it might be massively benoficial to myself for streaming... B)
 
+
+Notes: 
+if this is NOT working, for windows users, go to Settings -> System -> Sound, the scroll to "Input"
+From there, you can select the mic the system SHOULD recognize as the primary mic it will try to use for ANY application you open going forwards so long as the mic is connected to the PC (to my understanding)
+You can ALSO increase and decrease mic audio output as well from here, apparently...? (it is NOT system volume - I checked via turning up system volume via wireless headset, the presumed mic volume slider DIDNT move when I increased system output audio sooooo YIPPIE! (helps w/ YT vids) - idk why @ present it was/IS @ 76%, weird #) 
+
+
+'''
 '''
 Libraries used: 
     pip install SpeechRecognition
