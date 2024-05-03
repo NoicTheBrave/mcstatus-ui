@@ -65,7 +65,7 @@ def show_popup(button_index):
         time_text.config(state='disabled')
 
     # Function to update the time display
-    def update_time():
+    def update_time(): 
         seconds = 0
         test = ip_address  # Didn't want to update two legacy vars, lol
 
