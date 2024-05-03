@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog
 import threading
 import time
+import math
 
 from trackPlayerActivity import * #Custom thing for logging python data :) 
 
@@ -9,23 +10,48 @@ from mcstatus import JavaServer
 from ttsLib import *
 def create_buttons(num_buttons):
     global button_window
-    button_window = tk.Toplevel()
+    button_window = tk.Toplevel(root)
     button_window.title("Button Selector")
     button_window.protocol("WM_DELETE_WINDOW", close_program)
     
+    
+    menu_frame = tk.Frame(button_window)
+    menu_frame.pack()
     #Top Lable added - Exsessive spaces are there to help expand the window out more artificially VS setting an acutal window size :P 
-    label = tk.Label(button_window, text="                     Press a Button to get started:                     ")
+    label = tk.Label(menu_frame, text="                     Press a Button to get started:                     ")
     label.pack()
+    
 
     with open("iplist.txt", "r") as file:
         lines = file.readlines()[1:]  # Skip the first line
-        for i in range(num_buttons):
+        test = [tk.Frame(button_window)]*3 #theoredically, this now represents 3 different frames... depending on which order i PACK, will determine which set of assets will be on top, middle, and bottom, I think... 
+        temp = [] #*(range(num_buttons)%3)# should help me make the length of button part only 3 before rolling over to next row
+        rowShifter = 0 
+        for i in range(num_buttons): #button making loop
             if i < len(lines):
                 ip_address = lines[i].strip()
             else:
                 ip_address = ""
-            button = tk.Button(button_window, text=ip_address, command=lambda idx=i: on_button_press(idx))
-            button.pack()
+            print(math.floor(i/3))
+            
+            button = tk.Button(test[math.floor(i/3)], text=ip_address, command=lambda idx=i: on_button_press(idx))
+            
+            if((i % 3 == 0) and (i != 0)):
+                test[math.floor(i/3)].pack()
+            """ if((i % 3 == 0) and (i != 0)): 
+                for j in range(3): #Packing loop
+                    temp[j].pack(side=tk.LEFT) 
+                temp = [] #clear array before using it again 
+                rowShifter += 1
+            button = tk.Button(menu_frame, text=ip_address, command=lambda idx=i: on_button_press(idx))
+            print(i - rowShifter*3) """
+            #temp.append(button)
+            #temp += 1 
+        print("end of setup")
+        """ for i in range(3): 
+            test[i].pack() """
+        #rowShifter = 0 #reset the shifter 
+        
 
     # Add "Add Server IP" button
     add_button = tk.Button(button_window, text="Add Server IP", command=add_server_ip)
