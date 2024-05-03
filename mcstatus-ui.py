@@ -37,7 +37,7 @@ def on_button_press(button_index):
 prevPlayerCnt = -1 #place holder for function below 
 def show_popup(button_index):
     ip_address = get_ip_address(button_index)
-    popup_window = tk.Toplevel()
+    popup_window = tk.Toplevel() #tk.Toplevel()
     popup_window.title("Button Pressed")
     
 
@@ -45,19 +45,21 @@ def show_popup(button_index):
     ip_label = tk.Label(popup_window, text=f"IP Address: {ip_address}")
     ip_label.pack()
 
+
+    checkBoxFrame = tk.Frame(root) #----We gonna see how this works and hope for the best 
     # Checkbutton to toggle querying for players
     query_var = tk.BooleanVar(value=False)  # Default: Querying Disabled
-    query_button = tk.Checkbutton(popup_window, text="Enable Query", variable=query_var)
+    query_button = tk.Checkbutton(checkBoxFrame, text="Enable Query", variable=query_var)
     query_button.pack(side=tk.LEFT)
 
     
     
     logData_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
-    logData_button = tk.Checkbutton(popup_window, text="Enable Player Data Logging", variable=logData_var)
+    logData_button = tk.Checkbutton(checkBoxFrame, text="Enable Player Data Logging", variable=logData_var)
     logData_button.pack(side=tk.LEFT)
 
     ttsPlayerStatus_var = tk.BooleanVar(value=False)  # Default: Logging Disabled
-    ttsPlayerStatus_button = tk.Checkbutton(popup_window, text="Enable TTS Player Status", variable=ttsPlayerStatus_var)
+    ttsPlayerStatus_button = tk.Checkbutton(checkBoxFrame, text="Enable TTS Player Status", variable=ttsPlayerStatus_var)
     ttsPlayerStatus_button.pack(side=tk.LEFT)
 
 
