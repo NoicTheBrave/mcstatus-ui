@@ -21,6 +21,19 @@ storeAudio = currentFileDirectory + "\\audioFiles\\"
 storeText = currentFileDirectory + "\\textFiles\\"
 
 counter = 0 #again, i am lazy
+
+def get_epoch_time():
+    epoch_time = int(time.time())
+    return epoch_time
+
+def epoch_to_human_readable(epoch_time):
+    #human_readable_time = time.ctime(epoch_time)
+    
+    human_readable_time = time.strftime("%m-%d-%Y_%H-%M-%S", time.localtime(epoch_time))
+    
+    return human_readable_time 
+
+
 while True: 
 
     #--------------RECORDING SECTION--------------
