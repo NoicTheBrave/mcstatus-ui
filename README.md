@@ -1,7 +1,7 @@
 # mcstatus-ui
 Originally based on https://github.com/Dinnerbone/mcstatus, this adds a more refined finish to the use of the program. @ present, it just saves a log of IP addresses you yourself enter (no features added as of yet to remove them directly in "app"), and pings them. You can do this once, or repeatedly. The choice is yours!
 
-#NOTE: This Documentation is *minorly* out of date
+# NOTE: This Documentation is *minorly* out of date
 * Major functions still work, simply may need to swap out images used for the examples below
 * Need to discuss the TTS add-on
 * Need to organize files better & remove / re-locate specific files (old files are good for demos & references later on, maybe bring back the old files as well from the old "development" folder I deleted many versions ago...) but... yeah, this is a mess rn - if you are reading this, I apologize for the mess, I got into a creative-flow one night and just WENT with it. 
